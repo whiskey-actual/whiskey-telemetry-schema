@@ -1,0 +1,35 @@
+CREATE TABLE [dbo].[DeviceCrowdstrike] (
+    [DeviceCrowdstrikeID]       			UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
+    [CrowdstrikeDeviceId]                   VARCHAR(255)        NOT NULL,
+    [CrowdstrikeCID]                        VARCHAR(255)        NOT NULL,
+    [CrowdstrikeAgentVersion]               VARCHAR(255)        NOT NULL,
+    [CrowdstrikeBIOSManufacturer]           VARCHAR(255)        NOT NULL,
+    [CrowdstrikeBIOSVersion]                VARCHAR(255)        NOT NULL,
+    [CrowdstrikeExternalIP]                 VARCHAR(255)        NULL,
+    [CrowdstrikeMACAddress]                 VARCHAR(255)        NOT NULL,
+    [CrowdstrikeLocalIP]                    VARCHAR(255)        NOT NULL,
+    [CrowdstrikeMachineDomain]              VARCHAR(255)        NOT NULL,
+    [CrowdstrikeMajorVersion]               VARCHAR(255)        NOT NULL,
+    [CrowdstrikeMinorVersion]               VARCHAR(255)        NOT NULL,
+    [CrowdstrikeOSVersion]                  VARCHAR(255)        NOT NULL,
+    [CrowdstrikeOSBuild]                    VARCHAR(255)        NOT NULL,
+    [CrowdstrikePlatformName]               VARCHAR(255)        NOT NULL,
+    [CrowdstrikeReducedFunctionalityMode]   VARCHAR(255)        NOT NULL,
+    [CrowdstrikeProductTypeDesc]            VARCHAR(255)        NOT NULL,
+    [CrowdstrikeProvisionStatus]            VARCHAR(255)        NOT NULL,
+    [CrowdstrikeSerialNumber]               VARCHAR(255)        NOT NULL,
+    [CrowdstrikeServicePackMajor]           VARCHAR(255)        NOT NULL,
+    [CrowdstrikeServicePackMinor]           VARCHAR(255)        NOT NULL,
+    [CrowdstrikeStatus]                     VARCHAR(255)        NOT NULL,
+    [CrowdstrikeSystemManufacturer]         VARCHAR(255)        NOT NULL,
+    [CrowdstrikeSystemProductName]          VARCHAR(255)        NOT NULL,
+    [CrowdstrikeKernelVersion]              VARCHAR(255)        NOT NULL,
+    -- datetime
+    [CrowdstrikeFirstSeenDateTime]          DATETIME2           NOT NULL,
+    [CrowdstrikeLastSeenDateTime]           DATETIME2           NOT NULL,
+    [CrowdstrikeModifiedDateTime]           DATETIME2           NOT NULL,
+ 
+    CONSTRAINT [PK_DeviceCrowdstrikeID] PRIMARY KEY CLUSTERED ([DeviceCrowdstrikeID] ASC),
+)
+GO
+
