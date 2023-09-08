@@ -91,7 +91,7 @@ BEGIN
                 activeDirectoryWhenChanged,
                 ActiveDirectoryLastLogon,
                 ActiveDirectoryPwdLastSet,
-                ActiveDirectoryLstLogonTimestamp
+                ActiveDirectoryLastLogonTimestamp
             ) VALUES (
                 @ActiveDirectoryDN,
                 @activeDirectoryOperatingSystem,
@@ -102,7 +102,7 @@ BEGIN
                 @activeDirectoryWhenChanged,
                 @ActiveDirectoryLastLogon,
                 @ActiveDirectoryPwdLastSet,
-                @ActiveDirectoryLstLogonTimestamp
+                @ActiveDirectoryLastLogonTimestamp
             )
     END
     ELSE
@@ -119,7 +119,7 @@ BEGIN
             activeDirectoryWhenChanged=@activeDirectoryWhenChanged,
             ActiveDirectoryLastLogon=@ActiveDirectoryLastLogon,
             ActiveDirectoryPwdLastSet=@ActiveDirectoryPwdLastSet,
-            ActiveDirectoryLstLogonTimestamp=@ActiveDirectoryLstLogonTimestamp
+            ActiveDirectoryLastLogonTimestamp=@ActiveDirectoryLastLogonTimestamp
     END
 
 
