@@ -47,3 +47,81 @@ GO
 
 CREATE NONCLUSTERED INDEX [IDX_Device_ObservedByCrowdstrike] ON [dbo].[Device]([DeviceObservedByCrowdstrike] DESC);
 GO
+
+CREATE PROCEDURE dbo.sp_add_device_activeDirectory 
+    @deviceName                             VARCHAR(255),
+    @activeDirectoryDN                      VARCHAR(255),
+    @activeDirectoryOperatingSystem         VARCHAR(255),
+    @activeDirectoryOperatingSystemVersion  VARCHAR(255),
+    @activeDirectoryDNSHostName             VARCHAR(255),
+    @activeDirectoryLogonCount              INT,
+    @activeDirectoryWhenCreated             DATETIME2,
+    @activeDirectoryWhenChanged             DATETIME2,
+    @activeDirectoryLastLogon               DATETIME2,
+    @activeDirectoryPwdLastSet              DATETIME2,
+    @activeDirectoryLastLogonTimestamp      DATETIME2
+AS
+BEGIN
+
+    DECLARE @DeviceID INT
+    SELECT @DeviceID=0
+
+    SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
+    
+    IF(@DeviceID=0)
+    BEGIN
+        INSERT INTO Device(DeviceName, DeviceObservedByActiveDirectory) VALUES (@DeviceName, 1)
+        SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
+    END
+
+    DECLARE @DeviceActiveDirectoryID INT
+    SELECT @DeviceActiveDirectoryID=0
+    SELECT @DeviceActiveDirectoryID=DeviceActiveDirectoryID FROM DeviceActiveDirectory WHERE DeviceID=@DeviceID
+
+    IF @DeviceActiveDirectoryID=0
+    BEGIN
+        INSERT INTO
+            DeviceActiveDirectory (
+                ActiveDirectoryDN,
+                activeDirectoryOperatingSystem,
+                activeDirectoryOperatingSystemVersion,
+                ActiveDirectoryDNSHostName,
+                ActiveDirectoryLogonCount,
+                ActiveDirectoryWhenCreated,
+                activeDirectoryWhenChanged,
+                ActiveDirectoryLastLogon,
+                ActiveDirectoryPwdLastSet,
+                ActiveDirectoryLstLogonTimestamp
+            ) VALUES (
+                @ActiveDirectoryDN,
+                @activeDirectoryOperatingSystem,
+                @activeDirectoryOperatingSystemVersion,
+                @ActiveDirectoryDNSHostName,
+                @ActiveDirectoryLogonCount,
+                @ActiveDirectoryWhenCreated,
+                @activeDirectoryWhenChanged,
+                @ActiveDirectoryLastLogon,
+                @ActiveDirectoryPwdLastSet,
+                @ActiveDirectoryLstLogonTimestamp
+            )
+    END
+    ELSE
+    BEGIN
+        UPDATE
+            DeviceActiveDirectory
+        SET
+            ActiveDirectoryDN=@ActiveDirectoryDN,
+            activeDirectoryOperatingSystem=@activeDirectoryOperatingSystem,
+            activeDirectoryOperatingSystemVersion=@activeDirectoryOperatingSystemVersion,
+            ActiveDirectoryDNSHostName=@ActiveDirectoryDNSHostName,
+            ActiveDirectoryLogonCount=@ActiveDirectoryLogonCount,
+            ActiveDirectoryWhenCreated=@ActiveDirectoryWhenCreated,
+            activeDirectoryWhenChanged=@activeDirectoryWhenChanged,
+            ActiveDirectoryLastLogon=@ActiveDirectoryLastLogon,
+            ActiveDirectoryPwdLastSet=@ActiveDirectoryPwdLastSet,
+            ActiveDirectoryLstLogonTimestamp=@ActiveDirectoryLstLogonTimestamp
+    END
+
+
+
+END
