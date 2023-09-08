@@ -1,5 +1,6 @@
 CREATE TABLE [dbo].[Device] (
     [DeviceID]					            UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
+    [DeviceName]                            VARCHAR(64)         NOT NULL,
     [DeviceIsActive]                        BIT                 NOT NULL    DEFAULT(0),
     [DeviceFirstObserved]                   DATETIME2           NOT NULL    DEFAULT(SYSDATETIME()),
     [DeviceLastObserved]                    DATETIME2           NOT NULL    DEFAULT(SYSDATETIME()),
@@ -63,22 +64,20 @@ CREATE PROCEDURE dbo.sp_add_device_activeDirectory
 AS
 BEGIN
 
-    DECLARE @DeviceID INT
-    SELECT @DeviceID=0
+    DECLARE @DeviceID UNIQUEIDENTIFIER
 
     SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     
-    IF(@DeviceID=0)
+    IF @DeviceID IS NULL
     BEGIN
         INSERT INTO Device(DeviceName, DeviceObservedByActiveDirectory) VALUES (@DeviceName, 1)
         SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     END
 
-    DECLARE @DeviceActiveDirectoryID INT
-    SELECT @DeviceActiveDirectoryID=0
+    DECLARE @DeviceActiveDirectoryID UNIQUEIDENTIFIER
     SELECT @DeviceActiveDirectoryID=DeviceActiveDirectoryID FROM DeviceActiveDirectory WHERE DeviceID=@DeviceID
 
-    IF @DeviceActiveDirectoryID=0
+    IF @DeviceActiveDirectoryID IS NULL
     BEGIN
         INSERT INTO
             DeviceActiveDirectory (
