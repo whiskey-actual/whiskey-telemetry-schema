@@ -75,7 +75,7 @@ BEGIN
     END
 
     DECLARE @DeviceActiveDirectoryID UNIQUEIDENTIFIER
-    SELECT @DeviceActiveDirectoryID=DeviceActiveDirectoryID FROM DeviceActiveDirectory WHERE DeviceID=@DeviceID
+    SELECT @DeviceActiveDirectoryID=DeviceActiveDirectoryID FROM Device WHERE DeviceID=@DeviceID
 
     IF @DeviceActiveDirectoryID IS NULL
     BEGIN
@@ -119,6 +119,8 @@ BEGIN
             ActiveDirectoryLastLogon=@ActiveDirectoryLastLogon,
             ActiveDirectoryPwdLastSet=@ActiveDirectoryPwdLastSet,
             ActiveDirectoryLastLogonTimestamp=@ActiveDirectoryLastLogonTimestamp
+        WHERE
+            DeviceActiveDirectoryID=@DeviceActiveDirectoryID
     END
 
 
