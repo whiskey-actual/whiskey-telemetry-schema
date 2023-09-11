@@ -155,6 +155,10 @@ BEGIN
                 @AzureIsManaged,
                 @AzureIsRooted
             )
+
+            SELECT @DeviceAzureActiveDirectoryID=DeviceAzureActiveDirectoryID FROM DeviceAzureActiveDirectory WHERE AzureID=@AzureID
+
+            UPDATE Device SET DeviceAzureActiveDirectoryID=@DeviceAzureActiveDirectoryID WHERE DeviceID=@DeviceID
     END
     ELSE
     BEGIN

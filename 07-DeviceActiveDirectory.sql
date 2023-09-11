@@ -70,6 +70,11 @@ BEGIN
                 @ActiveDirectoryPwdLastSet,
                 @ActiveDirectoryLastLogonTimestamp
             )
+
+            SELECT @DeviceActiveDirectoryID=DeviceActiveDirectoryID FROM DeviceActiveDirectory WHERE ActiveDirectoryDN=@ActiveDirectoryDN
+
+            UPDATE Device SET DeviceActiveDirectoryID=@DeviceActiveDirectoryID WHERE DeviceID=@DeviceID
+
     END
     ELSE
     BEGIN
