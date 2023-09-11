@@ -1,25 +1,24 @@
 CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     [DeviceAzureActiveDirectoryID]			UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
     [AzureId]                               VARCHAR(255)        NOT NULL,
-    [AzureDeviceCategory]                   VARCHAR(255)        NOT NULL,
+    [AzureDeviceCategory]                   VARCHAR(255)        NULL,
     [AzureDeviceId]                         VARCHAR(255)        NOT NULL,
-    [AzureDeviceMetadata]                   VARCHAR(255)        NOT NULL,
-    [AzureDeviceOwnership]                  VARCHAR(255)        NOT NULL,
-    [AzureDeviceVersion]                    VARCHAR(255)        NOT NULL,
-    [AzureDomainName]                       VARCHAR(255)        NOT NULL,
-    [AzureEnrollmentProfileType]            VARCHAR(255)        NOT NULL,
-    [AzureEnrollmentType]                   VARCHAR(255)        NOT NULL,
-    [AzureExternalSourceName]               VARCHAR(255)        NOT NULL,
-    [AzureManagementType]                   VARCHAR(255)        NOT NULL,
-    [AzureManufacturer]                     VARCHAR(255)        NOT NULL,
-    [AzureMDMAppId]                         VARCHAR(255)        NOT NULL,
-    [AzureModel]                            VARCHAR(255)        NOT NULL,
-    [AzureOnPremisesSyncEnabled]            VARCHAR(255)        NOT NULL,
-    [AzureOperatingSystem]                  VARCHAR(255)        NOT NULL,
-    [AzureOperatingSystemVersion]           VARCHAR(255)        NOT NULL,
-    [AzureProfileType]                      VARCHAR(255)        NOT NULL,
-    [AzureSourceType]                       VARCHAR(255)        NOT NULL,
-    [AzureTrustType]                        VARCHAR(255)        NOT NULL,
+    [AzureDeviceMetadata]                   VARCHAR(255)        NULL, -- always null
+    [AzureDeviceOwnership]                  VARCHAR(255)        NULL,
+    [AzureDeviceVersion]                    VARCHAR(255)        NULL,
+    [AzureDomainName]                       VARCHAR(255)        NULL, -- always null
+    [AzureEnrollmentProfileType]            VARCHAR(255)        NULL, -- always null
+    [AzureEnrollmentType]                   VARCHAR(255)        NULL,
+    [AzureExternalSourceName]               VARCHAR(255)        NULL, -- always null
+    [AzureManagementType]                   VARCHAR(255)        NULL,
+    [AzureManufacturer]                     VARCHAR(255)        NULL,
+    [AzureMDMAppId]                         VARCHAR(255)        NULL,
+    [AzureModel]                            VARCHAR(255)        NULL,
+    [AzureOperatingSystem]                  VARCHAR(255)        NULL, -- always null
+    [AzureOperatingSystemVersion]           VARCHAR(255)        NULL,
+    [AzureProfileType]                      VARCHAR(255)        NULL,
+    [AzureSourceType]                       VARCHAR(255)        NULL, -- always null
+    [AzureTrustType]                        VARCHAR(255)        NULL,
     -- dates
     [AzureDeletedDateTime]                  DATETIME2           NULL,
     [AzureApproximateLastSignInDateTime]    DATETIME2           NULL,
@@ -28,10 +27,11 @@ CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     [AzureOnPremisesLastSyncDateTime]       DATETIME2           NULL,
     [AzureRegistrationDateTime]             DATETIME2           NULL,
     -- booleans
-    [AzureAccountEnabled]                   BIT                 NOT NULL DEFAULT(0),
-    [AzureIsCompliant]                      BIT                 NOT NULL DEFAULT(0),
-    [AzureIsManaged]                        BIT                 NOT NULL DEFAULT(0),
-    [AzureIsRooted]                         BIT                 NOT NULL DEFAULT(0),
+    [AzureOnPremisesSyncEnabled]            BIT                 NOT NULL DEFAULT((0)),
+    [AzureAccountEnabled]                   BIT                 NOT NULL DEFAULT((0)),
+    [AzureIsCompliant]                      BIT                 NOT NULL DEFAULT((0)),
+    [AzureIsManaged]                        BIT                 NOT NULL DEFAULT((0)),
+    [AzureIsRooted]                         BIT                 NOT NULL DEFAULT((0)),
     
 
     CONSTRAINT [PK_DeviceAzureActiveDirectoryID] PRIMARY KEY CLUSTERED ([DeviceAzureActiveDirectoryID] ASC),
@@ -55,7 +55,6 @@ CREATE PROCEDURE dbo.sp_add_device_azureActiveDirectory
     @AzureManufacturer				        VARCHAR(255),
     @AzureMDMAppId				            VARCHAR(255),
     @AzureModel				                VARCHAR(255),
-    @AzureOnPremisesSyncEnabled		        VARCHAR(255),
     @AzureOperatingSystem			        VARCHAR(255),
     @AzureOperatingSystemVersion	        VARCHAR(255),
     @AzureProfileType				        VARCHAR(255),
@@ -69,6 +68,7 @@ CREATE PROCEDURE dbo.sp_add_device_azureActiveDirectory
     @AzureOnPremisesLastSyncDateTime        DATETIME2,
     @AzureRegistrationDateTime              DATETIME2,
     -- booleans
+    @AzureOnPremisesSyncEnabled		        BIT,
     @AzureAccountEnabled                    BIT,
     @AzureIsCompliant                       BIT,
     @AzureIsManaged                         BIT,
@@ -107,7 +107,6 @@ BEGIN
                 AzureManufacturer,
                 AzureMDMAppId,
                 AzureModel,
-                AzureOnPremisesSyncEnabled,
                 AzureOperatingSystem,
                 AzureOperatingSystemVersion,
                 AzureProfileType,
@@ -119,6 +118,7 @@ BEGIN
                 AzureCreatedDateTime,
                 AzureOnPremisesLastSyncDateTime,
                 AzureRegistrationDateTime,
+                AzureOnPremisesSyncEnabled,
                 AzureAccountEnabled,
                 AzureIsCompliant,
                 AzureIsManaged,
@@ -138,7 +138,6 @@ BEGIN
                 @AzureManufacturer,
                 @AzureMDMAppId,
                 @AzureModel,
-                @AzureOnPremisesSyncEnabled,
                 @AzureOperatingSystem,
                 @AzureOperatingSystemVersion,
                 @AzureProfileType,
@@ -150,6 +149,7 @@ BEGIN
                 @AzureCreatedDateTime,
                 @AzureOnPremisesLastSyncDateTime,
                 @AzureRegistrationDateTime,
+                @AzureOnPremisesSyncEnabled,
                 @AzureAccountEnabled,
                 @AzureIsCompliant,
                 @AzureIsManaged,
@@ -160,7 +160,7 @@ BEGIN
     BEGIN
 
         UPDATE Device SET DeviceObservedByAzureActiveDirectory=1
-        
+
         UPDATE
             DeviceAzureActiveDirectory
         SET
@@ -178,7 +178,6 @@ BEGIN
             AzureManufacturer=@AzureManufacturer,
             AzureMDMAppId=@AzureMDMAppId,
             AzureModel=@AzureModel,
-            AzureOnPremisesSyncEnabled=@AzureOnPremisesSyncEnabled,
             AzureOperatingSystem=@AzureOperatingSystem,
             AzureOperatingSystemVersion=@AzureOperatingSystemVersion,
             AzureProfileType=@AzureProfileType,
@@ -190,6 +189,7 @@ BEGIN
             AzureCreatedDateTime=@AzureCreatedDateTime,
             AzureOnPremisesLastSyncDateTime=@AzureOnPremisesLastSyncDateTime,
             AzureRegistrationDateTime=@AzureRegistrationDateTime,
+            AzureOnPremisesSyncEnabled=@AzureOnPremisesSyncEnabled,
             AzureAccountEnabled=@AzureAccountEnabled,
             AzureIsCompliant=@AzureIsCompliant,
             AzureIsManaged=@AzureIsManaged,
