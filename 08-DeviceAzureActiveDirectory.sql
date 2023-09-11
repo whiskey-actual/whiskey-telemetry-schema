@@ -1,8 +1,8 @@
 CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     [DeviceAzureActiveDirectoryID]			UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
     [AzureId]                               VARCHAR(255)        NOT NULL,
-    [AzureDeviceCategory]                   VARCHAR(255)        NULL,
     [AzureDeviceId]                         VARCHAR(255)        NOT NULL,
+    [AzureDeviceCategory]                   VARCHAR(255)        NULL,
     [AzureDeviceMetadata]                   VARCHAR(255)        NULL, -- always null
     [AzureDeviceOwnership]                  VARCHAR(255)        NULL,
     [AzureDeviceVersion]                    VARCHAR(255)        NULL,
