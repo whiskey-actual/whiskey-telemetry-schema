@@ -86,10 +86,10 @@ BEGIN
         SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     END
 
-    DECLARE @DeviceAzureActiveDirectory UNIQUEIDENTIFIER
-    SELECT @DeviceAzureActiveDirectory=DeviceAzureActiveDirectory FROM Device WHERE DeviceID=@DeviceID
+    DECLARE @DeviceAzureActiveDirectoryID UNIQUEIDENTIFIER
+    SELECT @DeviceAzureActiveDirectoryID=DeviceAzureActiveDirectoryID FROM Device WHERE DeviceID=@DeviceID
 
-    IF @DeviceAzureActiveDirectory IS NULL
+    IF @DeviceAzureActiveDirectoryID IS NULL
     BEGIN
         INSERT INTO
             DeviceAzureActiveDirectory (
@@ -158,6 +158,9 @@ BEGIN
     END
     ELSE
     BEGIN
+
+        UPDATE Device SET DeviceObservedByAzureActiveDirectory=1
+        
         UPDATE
             DeviceAzureActiveDirectory
         SET
@@ -192,7 +195,7 @@ BEGIN
             AzureIsManaged=@AzureIsManaged,
             AzureIsRooted=@AzureIsRooted
         WHERE
-            DeviceAzureActiveDirectory=@DeviceAzureActiveDirectory
+            DeviceAzureActiveDirectoryID=@DeviceAzureActiveDirectoryID
     END
 
 
