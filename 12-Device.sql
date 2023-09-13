@@ -29,6 +29,7 @@ CREATE TABLE [dbo].[Device] (
     CONSTRAINT [PK_DeviceID] PRIMARY KEY CLUSTERED ([DeviceID] ASC),
     CONSTRAINT [FK_Device_DeviceActiveDirectory] FOREIGN KEY (DeviceActiveDirectoryID) REFERENCES [dbo].[DeviceActiveDirectory](DeviceActiveDirectoryID),
     CONSTRAINT [FK_Device_DeviceAzureActiveDirectory] FOREIGN KEY (DeviceAzureActiveDirectoryID) REFERENCES [dbo].[DeviceAzureActiveDirectory](DeviceAzureActiveDirectoryID),
+    CONSTRAINT [FK_Device_DeviceAzureManaged] FOREIGN KEY (DeviceAzureManagedID) REFERENCES [dbo].[DeviceAzureManaged](DeviceAzureManagedID),
     CONSTRAINT [FK_Device_DeviceConnectwise] FOREIGN KEY (DeviceConnectwiseID) REFERENCES [dbo].[DeviceConnectwise](DeviceConnectwiseID),
     CONSTRAINT [FK_Device_DeviceCrowdstrike] FOREIGN KEY (DeviceCrowdstrikeID) REFERENCES [dbo].[DeviceCrowdstrike](DeviceCrowdstrikeID)
 );

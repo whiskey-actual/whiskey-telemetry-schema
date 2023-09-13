@@ -1,7 +1,7 @@
 CREATE TABLE [dbo].[DeviceAzureManaged] (
     [DeviceAzureManagedID]      			                UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
-    [AzureManagedDeviceName]                                VARCHAR(255)        NOT NULL,
     [AzureManagedId]                                        VARCHAR(255)        NOT NULL,
+    [AzureManagedDeviceName]                                VARCHAR(255)        NULL,
     [AzureManagedUserId]                                    VARCHAR(255)        NULL,
     [AzureManagedManagedDeviceOwnerType]                    VARCHAR(255)        NULL,
     [AzureManagedOperatingSystem]                           VARCHAR(255)        NULL,
