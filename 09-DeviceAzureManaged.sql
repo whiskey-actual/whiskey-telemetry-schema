@@ -1,7 +1,6 @@
 CREATE TABLE [dbo].[DeviceAzureManaged] (
     [DeviceAzureManagedID]      			                UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
     [AzureManagedDeviceName]                                VARCHAR(255)        NOT NULL,
-    [AzureManagedManagedDeviceName]                         VARCHAR(255)        NOT NULL,
     [AzureManagedId]                                        VARCHAR(255)        NOT NULL,
     [AzureManagedUserId]                                    VARCHAR(255)        NULL,
     [AzureManagedManagedDeviceOwnerType]                    VARCHAR(255)        NULL,
@@ -63,7 +62,7 @@ GO
 
 CREATE PROCEDURE dbo.sp_add_azureManaged_device
     @deviceName                                            VARCHAR(255),
-    @AzureManagedManagedDeviceName                         VARCHAR(255),
+    @AzureManagedDeviceName                                VARCHAR(255),
     @AzureManagedId                                        VARCHAR(255),
     @AzureManagedUserId                                    VARCHAR(255),
     @AzureManagedManagedDeviceOwnerType                    VARCHAR(255),
@@ -137,8 +136,8 @@ BEGIN
     BEGIN
         INSERT INTO
             DeviceAzureManaged (
-                AzureManagedManagedDeviceName,
                 AzureManagedId,
+                AzureManagedDeviceName,
                 AzureManagedUserId,
                 AzureManagedManagedDeviceOwnerType,
                 AzureManagedOperatingSystem,
@@ -190,8 +189,8 @@ BEGIN
                 AzureManagedIsSupervised,
                 AzureManagedIsEncrypted
             ) VALUES (
-                @AzureManagedManagedDeviceName,
                 @AzureManagedId,
+                @AzureManagedDeviceName,
                 @AzureManagedUserId,
                 @AzureManagedManagedDeviceOwnerType,
                 @AzureManagedOperatingSystem,
@@ -255,6 +254,7 @@ BEGIN
             DeviceAzureManaged
         SET
             AzureManagedId=@AzureManagedId,
+            AzureManagedDeviceName=@AzureManagedDeviceName,
             AzureManagedUserId=@AzureManagedUserId,
             AzureManagedManagedDeviceOwnerType=@AzureManagedManagedDeviceOwnerType,
             AzureManagedOperatingSystem=@AzureManagedOperatingSystem,
@@ -306,7 +306,7 @@ BEGIN
             AzureManagedIsSupervised=@AzureManagedIsSupervised,
             AzureManagedIsEncrypted=@AzureManagedIsEncrypted
         WHERE
-            DeviceAzureAzureID=@DeviceAzureManagedID
+            DeviceAzureManagedID=@DeviceAzureManagedID
     END
 
 
