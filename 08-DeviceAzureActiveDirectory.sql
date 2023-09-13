@@ -163,8 +163,6 @@ BEGIN
     ELSE
     BEGIN
 
-        UPDATE Device SET DeviceObservedByAzureActiveDirectory=1
-
         UPDATE
             DeviceAzureActiveDirectory
         SET

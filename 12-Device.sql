@@ -34,6 +34,8 @@ CREATE TABLE [dbo].[Device] (
 );
 GO
 
+CREATE NONCLUSTERED INDEX [IDX_Device_DeviceName] ON [dbo].[Device]([DeviceName] ASC);
+
 CREATE NONCLUSTERED INDEX [IDX_Device_DeviceIsActive] ON [dbo].[Device]([DeviceISActive] DESC);
 GO
 

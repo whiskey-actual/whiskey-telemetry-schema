@@ -79,8 +79,6 @@ BEGIN
     ELSE
     BEGIN
 
-        UPDATE Device SET DeviceObservedByActiveDirectory=1
-
         UPDATE
             DeviceActiveDirectory
         SET
