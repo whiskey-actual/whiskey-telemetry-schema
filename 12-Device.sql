@@ -14,7 +14,7 @@ CREATE TABLE [dbo].[Device] (
     [DeviceAzureActiveDirectoryID]          UNIQUEIDENTIFIER    NULL,
 
     -- Azure MDM
-    [DeviceObservedByAzureManagement]       BIT                 NOT NULL    DEFAULT(0),
+    [DeviceObservedByAzureManaged]          BIT                 NOT NULL    DEFAULT(0),
     [DeviceAzureManagedID]                  UNIQUEIDENTIFIER    NULL,
 
     -- Connectwise
@@ -43,6 +43,9 @@ CREATE NONCLUSTERED INDEX [IDX_Device_ObservedByActiveDirectory] ON [dbo].[Devic
 GO
 
 CREATE NONCLUSTERED INDEX [IDX_Device_ObservedByAzureActiveDirectory] ON [dbo].[Device]([DeviceObservedByAzureActiveDirectory] DESC);
+GO
+
+CREATE NONCLUSTERED INDEX [IDX_Device_ObservedByAzureManaged] ON [dbo].[Device]([DeviceObservedByAzureManaged] DESC);
 GO
 
 CREATE NONCLUSTERED INDEX [IDX_Device_ObservedByConnectwise] ON [dbo].[Device]([DeviceObservedByConnectwise] DESC);
