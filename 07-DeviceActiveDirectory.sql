@@ -73,7 +73,7 @@ BEGIN
 
             SELECT @DeviceActiveDirectoryID=DeviceActiveDirectoryID FROM DeviceActiveDirectory WHERE ActiveDirectoryDN=@ActiveDirectoryDN
 
-            UPDATE Device SET DeviceActiveDirectoryID=@DeviceActiveDirectoryID WHERE DeviceID=@DeviceID
+            UPDATE Device SET DeviceObservedByActiveDirectory=1, DeviceActiveDirectoryID=@DeviceActiveDirectoryID WHERE DeviceID=@DeviceID
 
     END
     ELSE

@@ -60,3 +60,255 @@ CREATE TABLE [dbo].[DeviceAzureManaged] (
 )
 GO
 
+
+CREATE PROCEDURE dbo.sp_add_azureManaged_device
+    @deviceName                                            VARCHAR(255),
+    @AzureManagedManagedDeviceName                         VARCHAR(255),
+    @AzureManagedId                                        VARCHAR(255),
+    @AzureManagedUserId                                    VARCHAR(255),
+    @AzureManagedManagedDeviceOwnerType                    VARCHAR(255),
+    @AzureManagedOperatingSystem                           VARCHAR(255),
+    @AzureManagedComplianceState                           VARCHAR(255),
+    @AzureManagedJailBroken                                VARCHAR(255),
+    @AzureManagedManagementAgent                           VARCHAR(255),
+    @AzureManagedOperatingSystemVersion                    VARCHAR(255),
+    @AzureManagedEASDeviceID                               VARCHAR(255),
+    @AzureManagedDeviceEnrollmentType                      VARCHAR(255),
+    @AzureManagedActivationLockBypassCode                  VARCHAR(255),
+    @AzureManagedEmailAddress                              VARCHAR(255),
+    @AzureManagedAzureADDeviceID                           VARCHAR(255),
+    @AzureManagedDeviceRegistrationState                   VARCHAR(255),
+    @AzureManagedDeviceCategoryDisplayName                 VARCHAR(255),
+    @AzureManagedExchangeAccessState                       VARCHAR(255),
+    @AzureManagedExchangeAccessStateReason                 VARCHAR(255),
+    @AzureManagedRemoteAssistanceSessionUrl                VARCHAR(255),
+    @AzureManagedRemoteAssistanceErrorDetails              VARCHAR(255),
+    @AzureManagedUserPrincipalName                         VARCHAR(255),
+    @AzureManagedModel                                     VARCHAR(255),
+    @AzureManagedManufacturer                              VARCHAR(255),
+    @AzureManagedIMEI                                      VARCHAR(255),
+    @AzureManagedSerialNumber                              VARCHAR(255),
+    @AzureManagedPhoneNumber                               VARCHAR(255),
+    @AzureManagedAndroidSecurityPatchLevel                 VARCHAR(255),
+    @AzureManagedUserDisplayName                           VARCHAR(255),
+    @AzureManagedConfigurationManagerClientEnabedFeatures  VARCHAR(255),
+    @AzureManagedWiFiMACAddress                            VARCHAR(255),
+    @AzureManagedDeviceHealthAttestationState              VARCHAR(255),
+    @AzureManagedSubscriberCarrier                         VARCHAR(255),
+    @AzureManagedMEID                                      VARCHAR(255),
+    @AzureManagedTotalStorageSpaceInBytes                  VARCHAR(255),
+    @AzureManagedFreeStorageSpaceInBytes                   VARCHAR(255),
+    @AzureManagedPartnerReportedThreatState                VARCHAR(255),
+    @AzureManagedRequireUserEnrollmentApproval             VARCHAR(255),
+    @AzureManagedICCID                                     VARCHAR(255),
+    @AzureManagedUDID                                      VARCHAR(255),
+    @AzureManagedNotes                                     VARCHAR(255),
+    @AzureManagedEthernetMacAddress                        VARCHAR(255),
+    @AzureManagedPhysicalMemoryInBytes                     VARCHAR(255),
+    -- dates
+    @AzureManagedEnrolledDateTime                          DATETIME2,
+    @AzureManagedLastSyncDateTime                          DATETIME2,
+    @AzureManagedEASActivationDateTime                     DATETIME2,
+    @AzureManagedExchangeLastSuccessfulSyncDateTime        DATETIME2,
+    @AzureManagedComplianceGracePeriodExpirationDateTime   DATETIME2,
+    @AzureManagedManagementCertificateExpirationDateTime   DATETIME2,
+    -- boolean  
+    @AzureManagedIsEASActivated                            BIT,
+    @AzureManagedIsAzureADRegistered                       BIT,
+    @AzureManagedIsSupervised                              BIT,
+    @AzureManagedIsEncrypted                               BIT
+AS
+BEGIN
+
+    DECLARE @DeviceID UNIQUEIDENTIFIER
+
+    SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
+    
+    IF @DeviceID IS NULL
+    BEGIN
+        INSERT INTO Device(DeviceName, DeviceObservedByAzureManaged) VALUES (@DeviceName, 1)
+        SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
+    END
+
+    DECLARE @DeviceAzureManagedID UNIQUEIDENTIFIER
+    SELECT @DeviceAzureManagedID=DeviceAzureManagedID FROM Device WHERE DeviceID=@DeviceID
+
+    IF @DeviceAzureManagedID IS NULL
+    BEGIN
+        INSERT INTO
+            DeviceAzureManaged (
+                @AzureManagedManagedDeviceName,
+                @AzureManagedId,
+                @AzureManagedUserId,
+                @AzureManagedManagedDeviceOwnerType,
+                @AzureManagedOperatingSystem,
+                @AzureManagedComplianceState,
+                @AzureManagedJailBroken,
+                @AzureManagedManagementAgent,
+                @AzureManagedOperatingSystemVersion,
+                @AzureManagedEASDeviceID,
+                @AzureManagedDeviceEnrollmentType,
+                @AzureManagedActivationLockBypassCode,
+                @AzureManagedEmailAddress,
+                @AzureManagedAzureADDeviceID,
+                @AzureManagedDeviceRegistrationState,
+                @AzureManagedDeviceCategoryDisplayName,
+                @AzureManagedExchangeAccessState,
+                @AzureManagedExchangeAccessStateReason,
+                @AzureManagedRemoteAssistanceSessionUrl,
+                @AzureManagedRemoteAssistanceErrorDetails,
+                @AzureManagedUserPrincipalName,
+                @AzureManagedModel,
+                @AzureManagedManufacturer,
+                @AzureManagedIMEI,
+                @AzureManagedSerialNumber,
+                @AzureManagedPhoneNumber,
+                @AzureManagedAndroidSecurityPatchLevel,
+                @AzureManagedUserDisplayName,
+                @AzureManagedConfigurationManagerClientEnabedFeatures,
+                @AzureManagedWiFiMACAddress,
+                @AzureManagedDeviceHealthAttestationState,
+                @AzureManagedSubscriberCarrier,
+                @AzureManagedMEID,
+                @AzureManagedTotalStorageSpaceInBytes,
+                @AzureManagedFreeStorageSpaceInBytes,
+                @AzureManagedPartnerReportedThreatState,
+                @AzureManagedRequireUserEnrollmentApproval,
+                @AzureManagedICCID,
+                @AzureManagedUDID,
+                @AzureManagedNotes,
+                @AzureManagedEthernetMacAddress,
+                @AzureManagedPhysicalMemoryInBytes,
+                @AzureManagedEnrolledDateTime,
+                @AzureManagedLastSyncDateTime,
+                @AzureManagedEASActivationDateTime,
+                @AzureManagedExchangeLastSuccessfulSyncDateTime,
+                @AzureManagedComplianceGracePeriodExpirationDateTime,
+                @AzureManagedManagementCertificateExpirationDateTime,
+                @AzureManagedIsEASActivated,
+                @AzureManagedIsAzureADRegistered,
+                @AzureManagedIsSupervised,
+                @AzureManagedIsEncrypted
+            ) VALUES (
+                AzureManagedManagedDeviceName,
+                AzureManagedId,
+                AzureManagedUserId,
+                AzureManagedManagedDeviceOwnerType,
+                AzureManagedOperatingSystem,
+                AzureManagedComplianceState,
+                AzureManagedJailBroken,
+                AzureManagedManagementAgent,
+                AzureManagedOperatingSystemVersion,
+                AzureManagedEASDeviceID,
+                AzureManagedDeviceEnrollmentType,
+                AzureManagedActivationLockBypassCode,
+                AzureManagedEmailAddress,
+                AzureManagedAzureADDeviceID,
+                AzureManagedDeviceRegistrationState,
+                AzureManagedDeviceCategoryDisplayName,
+                AzureManagedExchangeAccessState,
+                AzureManagedExchangeAccessStateReason,
+                AzureManagedRemoteAssistanceSessionUrl,
+                AzureManagedRemoteAssistanceErrorDetails,
+                AzureManagedUserPrincipalName,
+                AzureManagedModel,
+                AzureManagedManufacturer,
+                AzureManagedIMEI,
+                AzureManagedSerialNumber,
+                AzureManagedPhoneNumber,
+                AzureManagedAndroidSecurityPatchLevel,
+                AzureManagedUserDisplayName,
+                AzureManagedConfigurationManagerClientEnabedFeatures,
+                AzureManagedWiFiMACAddress,
+                AzureManagedDeviceHealthAttestationState,
+                AzureManagedSubscriberCarrier,
+                AzureManagedMEID,
+                AzureManagedTotalStorageSpaceInBytes,
+                AzureManagedFreeStorageSpaceInBytes,
+                AzureManagedPartnerReportedThreatState,
+                AzureManagedRequireUserEnrollmentApproval,
+                AzureManagedICCID,
+                AzureManagedUDID,
+                AzureManagedNotes,
+                AzureManagedEthernetMacAddress,
+                AzureManagedPhysicalMemoryInBytes,
+                AzureManagedEnrolledDateTime,
+                AzureManagedLastSyncDateTime,
+                AzureManagedEASActivationDateTime,
+                AzureManagedExchangeLastSuccessfulSyncDateTime,
+                AzureManagedComplianceGracePeriodExpirationDateTime,
+                AzureManagedManagementCertificateExpirationDateTime,
+                AzureManagedIsEASActivated,
+                AzureManagedIsAzureADRegistered,
+                AzureManagedIsSupervised,
+                AzureManagedIsEncrypted
+            )
+
+            SELECT @DeviceAzureManagedID=DeviceAzureManagedID FROM DeviceAzureManaged WHERE AzureManagedId=@AzureManagedId
+
+            UPDATE Device SET DeviceObservedByAzureManaged=1, DeviceAzureManagedID=@DeviceAzureManagedID WHERE DeviceID=@DeviceID
+    END
+    ELSE
+    BEGIN
+
+        UPDATE
+            DeviceAzureManaged
+        SET
+            AzureManagedId=@AzureManagedId,
+            AzureManagedUserId=@AzureManagedUserId,
+            AzureManagedManagedDeviceOwnerType=@AzureManagedManagedDeviceOwnerType,
+            AzureManagedOperatingSystem=@AzureManagedOperatingSystem,
+            AzureManagedComplianceState=@AzureManagedComplianceState,
+            AzureManagedJailBroken=@AzureManagedJailBroken,
+            AzureManagedManagementAgent=@AzureManagedManagementAgent,
+            AzureManagedOperatingSystemVersion=@AzureManagedOperatingSystemVersion,
+            AzureManagedEASDeviceID=@AzureManagedEASDeviceID,
+            AzureManagedDeviceEnrollmentType=@AzureManagedDeviceEnrollmentType,
+            AzureManagedActivationLockBypassCode=@AzureManagedActivationLockBypassCode,
+            AzureManagedEmailAddress=@AzureManagedEmailAddress,
+            AzureManagedAzureADDeviceID=@AzureManagedAzureADDeviceID,
+            AzureManagedDeviceRegistrationState=@AzureManagedDeviceRegistrationState,
+            AzureManagedDeviceCategoryDisplayName=@AzureManagedDeviceCategoryDisplayName,
+            AzureManagedExchangeAccessState=@AzureManagedExchangeAccessState,
+            AzureManagedExchangeAccessStateReason=@AzureManagedExchangeAccessStateReason,
+            AzureManagedRemoteAssistanceSessionUrl=@AzureManagedRemoteAssistanceSessionUrl,
+            AzureManagedRemoteAssistanceErrorDetails=@AzureManagedRemoteAssistanceErrorDetails,
+            AzureManagedUserPrincipalName=@AzureManagedUserPrincipalName,
+            AzureManagedModel=@AzureManagedModel,
+            AzureManagedManufacturer=@AzureManagedManufacturer,
+            AzureManagedIMEI=@AzureManagedIMEI,
+            AzureManagedSerialNumber=@AzureManagedSerialNumber,
+            AzureManagedPhoneNumber=@AzureManagedPhoneNumber,
+            AzureManagedAndroidSecurityPatchLevel=@AzureManagedAndroidSecurityPatchLevel,
+            AzureManagedUserDisplayName=@AzureManagedUserDisplayName,
+            AzureManagedConfigurationManagerClientEnabedFeatures=@AzureManagedConfigurationManagerClientEnabedFeatures,
+            AzureManagedWiFiMACAddress=@AzureManagedWiFiMACAddress,
+            AzureManagedDeviceHealthAttestationState=@AzureManagedDeviceHealthAttestationState,
+            AzureManagedSubscriberCarrier=@AzureManagedSubscriberCarrier,
+            AzureManagedMEID=@AzureManagedMEID,
+            AzureManagedTotalStorageSpaceInBytes=@AzureManagedTotalStorageSpaceInBytes,
+            AzureManagedFreeStorageSpaceInBytes=@AzureManagedFreeStorageSpaceInBytes,
+            AzureManagedPartnerReportedThreatState=@AzureManagedPartnerReportedThreatState,
+            AzureManagedRequireUserEnrollmentApproval=@AzureManagedRequireUserEnrollmentApproval,
+            AzureManagedICCID=@AzureManagedICCID,
+            AzureManagedUDID=@AzureManagedUDID,
+            AzureManagedNotes=@AzureManagedNotes,
+            AzureManagedEthernetMacAddress=@AzureManagedEthernetMacAddress,
+            AzureManagedPhysicalMemoryInBytes=@AzureManagedPhysicalMemoryInBytes,
+            AzureManagedEnrolledDateTime=@AzureManagedEnrolledDateTime,
+            AzureManagedLastSyncDateTime=@AzureManagedLastSyncDateTime,
+            AzureManagedEASActivationDateTime=@AzureManagedEASActivationDateTime,
+            AzureManagedExchangeLastSuccessfulSyncDateTime=@AzureManagedExchangeLastSuccessfulSyncDateTime,
+            AzureManagedComplianceGracePeriodExpirationDateTime=@AzureManagedComplianceGracePeriodExpirationDateTime,
+            AzureManagedManagementCertificateExpirationDateTime=@AzureManagedManagementCertificateExpirationDateTime,
+            AzureManagedIsEASActivated=@AzureManagedIsEASActivated,
+            AzureManagedIsAzureADRegistered=@AzureManagedIsAzureADRegistered,
+            AzureManagedIsSupervised=@AzureManagedIsSupervised,
+            AzureManagedIsEncrypted=@AzureManagedIsEncrypted
+        WHERE
+            DeviceAzureAzureID=@DeviceAzureManagedID
+    END
+
+
+
+END
