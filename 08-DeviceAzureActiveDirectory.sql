@@ -39,7 +39,7 @@ CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
 GO
 
 
-CREATE PROCEDURE dbo.sp_add_device_azureActiveDirectory 
+CREATE PROCEDURE dbo.sp_add_azureActiveDirectory_device
     @deviceName                             VARCHAR(255),
     @AzureId                                VARCHAR(255),
     @AzureDeviceCategory			        VARCHAR(255),
