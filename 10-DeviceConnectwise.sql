@@ -19,8 +19,8 @@ CREATE TABLE [dbo].[DeviceConnectwise] (
     [ConnectwiseModel]                      VARCHAR(255), 
     [ConnectwiseDescription]                VARCHAR(255), 
     -- numbers  
-    [ConnectwiseTotalMemory]                VARCHAR(255), 
-    [ConnectwiseFreeMemory]                 VARCHAR(255), 
+    [ConnectwiseTotalMemory]                BIGINT, 
+    [ConnectwiseFreeMemory]                 BIGINT, 
     -- dates 
     [ConnectwiseLastObserved]               DATETIME2, 
     [ConnectwiseFirstSeen]                  DATETIME2, 
@@ -55,8 +55,8 @@ CREATE PROCEDURE dbo.sp_add_connectwise_device
     @ConnectwiseModel                       VARCHAR(255), 
     @ConnectwiseDescription                 VARCHAR(255), 
     -- numbers  
-    @ConnectwiseTotalMemory                 VARCHAR(255), 
-    @ConnectwiseFreeMemory                  VARCHAR(255), 
+    @ConnectwiseTotalMemory                 BIGINT, 
+    @ConnectwiseFreeMemory                  BIGINT, 
     -- dates 
     @ConnectwiseLastObserved                DATETIME2, 
     @ConnectwiseFirstSeen                   DATETIME2, 
