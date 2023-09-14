@@ -60,6 +60,9 @@ CREATE TABLE [dbo].[DeviceAzureManaged] (
 )
 GO
 
+CREATE NONCLUSTERED INDEX IDX_DeviceAzureManaged_AzureManagedId ON [dbo].[DeviceAzureManaged]([AzureManagedId])
+GO
+
 
 CREATE PROCEDURE dbo.sp_add_azureManaged_device
     @deviceName                                            VARCHAR(255),

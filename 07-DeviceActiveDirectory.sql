@@ -1,6 +1,6 @@
 CREATE TABLE [dbo].[DeviceActiveDirectory] (
     [DeviceActiveDirectoryID]			    UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
-    [ActiveDirectoryDN]                     VARCHAR(255)        NULL,
+    [ActiveDirectoryDN]                     VARCHAR(255)        NOT NULL,
     [ActiveDirectoryOperatingSystem]        VARCHAR(255)        NULL,
     [ActiveDirectoryOperatingSystemVersion] VARCHAR(255)        NULL,
     [ActiveDirectoryDNSHostName]            VARCHAR(255)        NULL,
@@ -14,6 +14,9 @@ CREATE TABLE [dbo].[DeviceActiveDirectory] (
     [ActiveDirectoryLastLogonTimestamp]     DATETIME2           NULL,
     CONSTRAINT [PK_DeviceActiveDirectoryID] PRIMARY KEY CLUSTERED ([DeviceActiveDirectoryID] ASC),
 );
+GO
+
+CREATE NONCLUSTERED INDEX IDX_DeviceActiveDirectory_ActiveDirectoryDN ON [dbo].[DeviceActiveDirectory]([ActiveDirectoryDN])
 GO
 
 CREATE PROCEDURE dbo.sp_add_activeDirectory_device 

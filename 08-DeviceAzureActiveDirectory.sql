@@ -38,6 +38,9 @@ CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
 );
 GO
 
+CREATE NONCLUSTERED INDEX IDX_DeviceAzureActiveDirectory_AzureID ON [dbo].[DeviceAzureActiveDirectory]([AzureId])
+GO
+
 
 CREATE PROCEDURE dbo.sp_add_azureActiveDirectory_device
     @deviceName                             VARCHAR(255),
