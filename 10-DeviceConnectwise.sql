@@ -35,6 +35,7 @@ CREATE NONCLUSTERED INDEX IDX_DeviceConnectwise_ConnectwiseId ON [dbo].[DeviceCo
 GO
 
 CREATE PROCEDURE dbo.sp_add_connectwise_device 
+    @deviceName                             VARCHAR(255),
     @ConnectwiseId                          VARCHAR(255), 
     @ConnectwiseDeviceType                  VARCHAR(255),
     @ConnectwiseLocation                    VARCHAR(255), 
