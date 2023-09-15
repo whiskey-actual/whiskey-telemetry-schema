@@ -93,7 +93,7 @@ BEGIN
             DeviceActiveDirectory
         SET
             ActiveDirectoryDN=@ActiveDirectoryDN,
-            activeDirectoryOperatingSystemID=@activeDirectoryOperatingSystemID,
+            activeDirectoryOperatingSystemID=@OperatingSystemID,
             activeDirectoryOperatingSystemVersion=@activeDirectoryOperatingSystemVersion,
             ActiveDirectoryDNSHostName=@ActiveDirectoryDNSHostName,
             ActiveDirectoryLogonCount=@ActiveDirectoryLogonCount,

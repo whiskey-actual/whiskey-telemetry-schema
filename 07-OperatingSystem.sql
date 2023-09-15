@@ -16,7 +16,6 @@ CREATE PROCEDURE sp_get_operatingSystemId
 AS
 BEGIN
 
-    DECLARE @OperatingSystemID UNIQUEIDENTIFIER
     DECLARE @OperatingSystemNormalizedID UNIQUEIDENTIFIER
 
     SELECT 
