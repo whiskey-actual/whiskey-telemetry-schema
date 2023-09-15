@@ -47,10 +47,8 @@ BEGIN
     EXEC sp_get_operatingSystemId @activeDirectoryOperatingSystem, @OperatingSystemID=@OperatingSystemID OUTPUT
 
     DECLARE @DeviceActiveDirectoryID UNIQUEIDENTIFIER
-    DECLARE @_ActiveDirectoryOperatingSystemID UNIQUEIDENTIFIER
     SELECT 
-        @DeviceActiveDirectoryID=DeviceActiveDirectoryID,
-        @_ActiveDirectoryOperatingSystemID=ActiveDirectoryOperatingSystemID
+        @DeviceActiveDirectoryID=DeviceActiveDirectoryID
     FROM
         Device WITH(NOLOCK)
     WHERE
@@ -71,7 +69,7 @@ BEGIN
                 ActiveDirectoryLastLogonTimestamp
             ) VALUES (
                 @ActiveDirectoryDN,
-                @activeDirectoryOperatingSystemID,
+                @OperatingSystemID,
                 @ActiveDirectoryDNSHostName,
                 @ActiveDirectoryLogonCount,
                 @ActiveDirectoryWhenCreated,
@@ -81,7 +79,7 @@ BEGIN
                 @ActiveDirectoryLastLogonTimestamp
             )
 
-            SELECT @DeviceActiveDirectoryID=DeviceActiveDirectoryID FROM DeviceActiveDirectory WHERE ActiveDirectoryDN=@ActiveDirectoryDN
+            SELECT @DeviceActiveDirectoryID=DeviceActiveDirectoryID FROM DeviceActiveDirectory WITH(NOLOCK) WHERE ActiveDirectoryDN=@ActiveDirectoryDN
 
             UPDATE Device SET DeviceObservedByActiveDirectory=1, DeviceActiveDirectoryID=@DeviceActiveDirectoryID WHERE DeviceID=@DeviceID
 
