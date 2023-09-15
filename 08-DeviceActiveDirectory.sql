@@ -22,7 +22,6 @@ CREATE PROCEDURE dbo.sp_add_activeDirectory_device
     @deviceName                             VARCHAR(255),
     @activeDirectoryDN                      VARCHAR(255),
     @activeDirectoryOperatingSystem         VARCHAR(255),
-    @activeDirectoryOperatingSystemVersion  VARCHAR(255),
     @activeDirectoryDNSHostName             VARCHAR(255),
     @activeDirectoryLogonCount              INT,
     @activeDirectoryWhenCreated             DATETIME2,
@@ -92,7 +91,6 @@ BEGIN
         SET
             ActiveDirectoryDN=@ActiveDirectoryDN,
             activeDirectoryOperatingSystemID=@OperatingSystemID,
-            activeDirectoryOperatingSystemVersion=@activeDirectoryOperatingSystemVersion,
             ActiveDirectoryDNSHostName=@ActiveDirectoryDNSHostName,
             ActiveDirectoryLogonCount=@ActiveDirectoryLogonCount,
             ActiveDirectoryWhenCreated=@ActiveDirectoryWhenCreated,
