@@ -1,8 +1,7 @@
 CREATE TABLE [dbo].[DeviceActiveDirectory] (
     [DeviceActiveDirectoryID]			    UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
     [ActiveDirectoryDN]                     VARCHAR(255)        NOT NULL,
-    [ActiveDirectoryOperatingSystem]        VARCHAR(255)        NULL,
-    [ActiveDirectoryOperatingSystemVersion] VARCHAR(255)        NULL,
+    [ActiveDirectoryOperatingSystemID]      UNIQUEIDENTIFIER    NULL,
     [ActiveDirectoryDNSHostName]            VARCHAR(255)        NULL,
     -- numbers
     [ActiveDirectoryLogonCount]             INT                 NOT NULL DEFAULT(0),
@@ -36,24 +35,33 @@ BEGIN
 
     DECLARE @DeviceID UNIQUEIDENTIFIER
 
-    SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
+    SELECT @DeviceID=DeviceID FROM Device WITH(NOLOCK) WHERE DeviceName=@deviceName
     
     IF @DeviceID IS NULL
     BEGIN
         INSERT INTO Device(DeviceName, DeviceObservedByActiveDirectory) VALUES (@DeviceName, 1)
-        SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
+        SELECT @DeviceID=DeviceID FROM Device WITH(NOLOCK) WHERE DeviceName=@deviceName
     END
 
+    DECLARE @OperatingSystemID UNIQUEIDENTIFIER
+    EXEC sp_get_operatingSystemId @activeDirectoryOperatingSystem, @OperatingSystemID=@OperatingSystemID OUTPUT
+
     DECLARE @DeviceActiveDirectoryID UNIQUEIDENTIFIER
-    SELECT @DeviceActiveDirectoryID=DeviceActiveDirectoryID FROM Device WHERE DeviceID=@DeviceID
+    DECLARE @_ActiveDirectoryOperatingSystemID UNIQUEIDENTIFIER
+    SELECT 
+        @DeviceActiveDirectoryID=DeviceActiveDirectoryID,
+        @_ActiveDirectoryOperatingSystemID=ActiveDirectoryOperatingSystemID
+    FROM
+        Device WITH(NOLOCK)
+    WHERE
+        DeviceID=@DeviceID
 
     IF @DeviceActiveDirectoryID IS NULL
     BEGIN
         INSERT INTO
             DeviceActiveDirectory (
                 ActiveDirectoryDN,
-                activeDirectoryOperatingSystem,
-                activeDirectoryOperatingSystemVersion,
+                activeDirectoryOperatingSystemID,
                 ActiveDirectoryDNSHostName,
                 ActiveDirectoryLogonCount,
                 ActiveDirectoryWhenCreated,
@@ -63,8 +71,7 @@ BEGIN
                 ActiveDirectoryLastLogonTimestamp
             ) VALUES (
                 @ActiveDirectoryDN,
-                @activeDirectoryOperatingSystem,
-                @activeDirectoryOperatingSystemVersion,
+                @activeDirectoryOperatingSystemID,
                 @ActiveDirectoryDNSHostName,
                 @ActiveDirectoryLogonCount,
                 @ActiveDirectoryWhenCreated,
@@ -86,7 +93,7 @@ BEGIN
             DeviceActiveDirectory
         SET
             ActiveDirectoryDN=@ActiveDirectoryDN,
-            activeDirectoryOperatingSystem=@activeDirectoryOperatingSystem,
+            activeDirectoryOperatingSystemID=@activeDirectoryOperatingSystemID,
             activeDirectoryOperatingSystemVersion=@activeDirectoryOperatingSystemVersion,
             ActiveDirectoryDNSHostName=@ActiveDirectoryDNSHostName,
             ActiveDirectoryLogonCount=@ActiveDirectoryLogonCount,
