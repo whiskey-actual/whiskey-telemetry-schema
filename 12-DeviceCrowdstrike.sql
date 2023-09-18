@@ -1,5 +1,5 @@
 CREATE TABLE [dbo].[DeviceCrowdstrike] (
-    [DeviceCrowdstrikeID]       			UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
+    [DeviceCrowdstrikeID]       			INT                 NOT NULL    IDENTITY(1,1),
     [CrowdstrikeDeviceId]                   VARCHAR(255)        NOT NULL,
     [CrowdstrikeCID]                        VARCHAR(255)        NULL,
     [CrowdstrikeAgentVersion]               VARCHAR(255)        NULL,
@@ -32,6 +32,10 @@ CREATE TABLE [dbo].[DeviceCrowdstrike] (
     CONSTRAINT [PK_DeviceCrowdstrikeID] PRIMARY KEY CLUSTERED ([DeviceCrowdstrikeID] ASC),
 )
 GO
+
+SET IDENTITY_INSERT DeviceCrowdstrike ON
+INSERT INTO DeviceCrowdstrike(DeviceCrowdstrikeID, CrowdstrikeDeviceId) VALUES (0, 'UNKNOWN')
+SET IDENTITY_INSERT DeviceCrowdstrike OFF
 
 
 CREATE NONCLUSTERED INDEX IDX_DeviceCrowdstrike_CrowdstrikeDeviceId ON [dbo].[DeviceCrowdstrike]([CrowdstrikeDeviceId])
@@ -69,7 +73,7 @@ CREATE PROCEDURE dbo.sp_add_crowdstrike_device
 AS
 BEGIN
 
-    DECLARE @DeviceID UNIQUEIDENTIFIER
+    DECLARE @DeviceID INT
     SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     IF @DeviceID IS NULL
     BEGIN
@@ -77,7 +81,7 @@ BEGIN
         SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     END
 
-    DECLARE @DeviceCrowdstrikeID UNIQUEIDENTIFIER
+    DECLARE @DeviceCrowdstrikeID INT
     SELECT @DeviceCrowdstrikeID=DeviceCrowdstrikeID FROM Device WHERE DeviceID=@DeviceID
 
     IF @DeviceCrowdstrikeID IS NULL

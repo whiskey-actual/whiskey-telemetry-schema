@@ -6,24 +6,19 @@ CREATE TABLE [dbo].[Device] (
     [DeviceLastObserved]                    DATETIME2           NOT NULL    DEFAULT(SYSDATETIME()),
 
     -- AD
-    [DeviceObservedByActiveDirectory]       BIT                 NOT NULL    DEFAULT(0),
-    [DeviceActiveDirectoryID]               UNIQUEIDENTIFIER    NULL,
+    [DeviceActiveDirectoryID]               INT                 NOT NULL    DEFAULT(0),
 
     -- AAD
-    [DeviceObservedByAzureActiveDirectory]  BIT                 NOT NULL    DEFAULT(0),
-    [DeviceAzureActiveDirectoryID]          UNIQUEIDENTIFIER    NULL,
+    [DeviceAzureActiveDirectoryID]          INT                 NOT NULL    DEFAULT(0),
 
     -- Azure MDM
-    [DeviceObservedByAzureManaged]          BIT                 NOT NULL    DEFAULT(0),
-    [DeviceAzureManagedID]                  UNIQUEIDENTIFIER    NULL,
+    [DeviceAzureManagedID]                  INT                 NOT NULL    DEFAULT(0),
 
     -- Connectwise
-    [DeviceObservedByConnectwise]           BIT                 NOT NULL    DEFAULT(0),
-    [DeviceConnectwiseID]                   UNIQUEIDENTIFIER    NULL,
+    [DeviceConnectwiseID]                   INT                 NOT NULL    DEFAULT(0),
 
     -- Crowdstrike
-    [DeviceObservedByCrowdstrike]           BIT                 NOT NULL    DEFAULT(0),
-    [DeviceCrowdstrikeID]                   UNIQUEIDENTIFIER    NULL,
+    [DeviceCrowdstrikeID]                   INT                 NOT NULL    DEFAULT(0),
 
     -- keys
     CONSTRAINT [PK_DeviceID] PRIMARY KEY CLUSTERED ([DeviceID] ASC),
@@ -41,17 +36,17 @@ GO
 CREATE NONCLUSTERED INDEX [IDX_Device_DeviceIsActive] ON [dbo].[Device]([DeviceISActive] DESC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_Device_ObservedByActiveDirectory] ON [dbo].[Device]([DeviceObservedByActiveDirectory] DESC);
+CREATE NONCLUSTERED INDEX [IDX_Device_DeviceActiveDirectoryID] ON [dbo].[Device]([DeviceActiveDirectoryID] DESC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_Device_ObservedByAzureActiveDirectory] ON [dbo].[Device]([DeviceObservedByAzureActiveDirectory] DESC);
+CREATE NONCLUSTERED INDEX [IDX_Device_DeviceAzureActiveDirectoryID] ON [dbo].[Device]([DeviceAzureActiveDirectoryID] DESC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_Device_ObservedByAzureManaged] ON [dbo].[Device]([DeviceObservedByAzureManaged] DESC);
+CREATE NONCLUSTERED INDEX [IDX_Device_DeviceAzureManagedID] ON [dbo].[Device]([DeviceAzureManagedID] DESC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_Device_ObservedByConnectwise] ON [dbo].[Device]([DeviceObservedByConnectwise] DESC);
+CREATE NONCLUSTERED INDEX [IDX_Device_DeviceConnectwiseID] ON [dbo].[Device]([DeviceConnectwiseID] DESC);
 GO
 
-CREATE NONCLUSTERED INDEX [IDX_Device_ObservedByCrowdstrike] ON [dbo].[Device]([DeviceObservedByCrowdstrike] DESC);
+CREATE NONCLUSTERED INDEX [IDX_Device_DeviceCrowdstrikeID] ON [dbo].[Device]([DeviceCrowdstrikeID] DESC);
 GO

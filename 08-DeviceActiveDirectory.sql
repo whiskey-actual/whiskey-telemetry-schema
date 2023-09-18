@@ -1,12 +1,13 @@
+-- create table
 CREATE TABLE [dbo].[DeviceActiveDirectory] (
-    [DeviceActiveDirectoryID]			    UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
+    [DeviceActiveDirectoryID]			    INT                 NOT NULL    IDENTITY(1,1),
     [ActiveDirectoryDN]                     VARCHAR(255)        NOT NULL,
-    [ActiveDirectoryOperatingSystemID]      UNIQUEIDENTIFIER    NULL,
+    [ActiveDirectoryOperatingSystemID]      INT                 NOT NULL    DEFAULT(0),
     [ActiveDirectoryDNSHostName]            VARCHAR(255)        NULL,
     -- numbers
-    [ActiveDirectoryLogonCount]             INT                 NOT NULL DEFAULT(0),
+    [ActiveDirectoryLogonCount]             INT                 NOT NULL    DEFAULT(0),
     -- dates
-    [ActiveDirectoryWhenCreated]            DATETIME2           NOT NULL,
+    [ActiveDirectoryWhenCreated]            DATETIME2           NULL,
     [ActiveDirectoryWhenChanged]            DATETIME2           NULL,
     [ActiveDirectoryLastLogon]              DATETIME2           NULL,
     [ActiveDirectoryPwdLastSet]             DATETIME2           NULL,
@@ -15,9 +16,16 @@ CREATE TABLE [dbo].[DeviceActiveDirectory] (
 );
 GO
 
+-- add default 0 row
+SET IDENTITY_INSERT DeviceActiveDirectory ON
+INSERT INTO DeviceActiveDirectory(DeviceActiveDirectoryID, ActiveDirectoryDN) VALUES (0, 'UNKNOWN')
+SET IDENTITY_INSERT DeviceActiveDirectory OFF
+
+-- indexes
 CREATE NONCLUSTERED INDEX IDX_DeviceActiveDirectory_ActiveDirectoryDN ON [dbo].[DeviceActiveDirectory]([ActiveDirectoryDN])
 GO
 
+-- default sproc
 CREATE PROCEDURE dbo.sp_add_activeDirectory_device 
     @deviceName                             VARCHAR(255),
     @activeDirectoryDN                      VARCHAR(255),
@@ -32,7 +40,7 @@ CREATE PROCEDURE dbo.sp_add_activeDirectory_device
 AS
 BEGIN
 
-    DECLARE @DeviceID UNIQUEIDENTIFIER
+    DECLARE @DeviceID INT
 
     SELECT @DeviceID=DeviceID FROM Device WITH(NOLOCK) WHERE DeviceName=@deviceName
     
@@ -42,10 +50,10 @@ BEGIN
         SELECT @DeviceID=DeviceID FROM Device WITH(NOLOCK) WHERE DeviceName=@deviceName
     END
 
-    DECLARE @OperatingSystemID UNIQUEIDENTIFIER
+    DECLARE @OperatingSystemID INT
     EXEC sp_get_operatingSystemId @activeDirectoryOperatingSystem, @OperatingSystemID=@OperatingSystemID OUTPUT
 
-    DECLARE @DeviceActiveDirectoryID UNIQUEIDENTIFIER
+    DECLARE @DeviceActiveDirectoryID INT
     SELECT 
         @DeviceActiveDirectoryID=DeviceActiveDirectoryID
     FROM

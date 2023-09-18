@@ -1,7 +1,7 @@
 CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
-    [DeviceAzureActiveDirectoryID]			UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
-    [AzureId]                               VARCHAR(255)        NOT NULL,
-    [AzureDeviceId]                         VARCHAR(255)        NOT NULL,
+    [DeviceAzureActiveDirectoryID]			INT                 NOT NULL    IDENTITY(1,1),
+    [AzureId]                               VARCHAR(255)        NULL,
+    [AzureDeviceId]                         VARCHAR(255)        NULL,
     [AzureDeviceCategory]                   VARCHAR(255)        NULL,
     [AzureDeviceMetadata]                   VARCHAR(255)        NULL, -- always null
     [AzureDeviceOwnership]                  VARCHAR(255)        NULL,
@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     [AzureDeletedDateTime]                  DATETIME2           NULL,
     [AzureApproximateLastSignInDateTime]    DATETIME2           NULL,
     [AzureComplianceExpirationDateTime]     DATETIME2           NULL,
-    [AzureCreatedDateTime]                  DATETIME2           NOT NULL,
+    [AzureCreatedDateTime]                  DATETIME2           NULL,
     [AzureOnPremisesLastSyncDateTime]       DATETIME2           NULL,
     [AzureRegistrationDateTime]             DATETIME2           NULL,
     -- booleans
@@ -33,7 +33,6 @@ CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     [AzureIsManaged]                        BIT                 NOT NULL DEFAULT((0)),
     [AzureIsRooted]                         BIT                 NOT NULL DEFAULT((0)),
     
-
     CONSTRAINT [PK_DeviceAzureActiveDirectoryID] PRIMARY KEY CLUSTERED ([DeviceAzureActiveDirectoryID] ASC),
 );
 GO
@@ -79,7 +78,7 @@ CREATE PROCEDURE dbo.sp_add_azureActiveDirectory_device
 AS
 BEGIN
 
-    DECLARE @DeviceID UNIQUEIDENTIFIER
+    DECLARE @DeviceID INT
 
     SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     
@@ -89,7 +88,7 @@ BEGIN
         SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     END
 
-    DECLARE @DeviceAzureActiveDirectoryID UNIQUEIDENTIFIER
+    DECLARE @DeviceAzureActiveDirectoryID INT
     SELECT @DeviceAzureActiveDirectoryID=DeviceAzureActiveDirectoryID FROM Device WHERE DeviceID=@DeviceID
 
     IF @DeviceAzureActiveDirectoryID IS NULL

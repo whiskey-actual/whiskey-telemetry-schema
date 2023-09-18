@@ -1,5 +1,5 @@
 CREATE TABLE [dbo].[DeviceAzureManaged] (
-    [DeviceAzureManagedID]      			                UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
+    [DeviceAzureManagedID]      			                INT                 NOT NULL    IDENTITY(1,1),
     [AzureManagedId]                                        VARCHAR(255)        NOT NULL,
     [AzureManagedDeviceName]                                VARCHAR(255)        NULL,
     [AzureManagedUserId]                                    VARCHAR(255)        NULL,
@@ -59,6 +59,10 @@ CREATE TABLE [dbo].[DeviceAzureManaged] (
     CONSTRAINT [PK_DeviceAzureManagedID] PRIMARY KEY CLUSTERED ([DeviceAzureManagedID] ASC),
 )
 GO
+
+SET IDENTITY_INSERT DeviceAzureManaged ON
+INSERT INTO DeviceAzureManaged (DeviceAzureManagedID, AzureManagedId) VALUES (0, 'UNKNOWN')
+SET IDENTITY_INSERT DeviceAzureManaged OFF
 
 CREATE NONCLUSTERED INDEX IDX_DeviceAzureManaged_AzureManagedId ON [dbo].[DeviceAzureManaged]([AzureManagedId])
 GO
@@ -124,7 +128,7 @@ CREATE PROCEDURE dbo.sp_add_azureManaged_device
 AS
 BEGIN
 
-    DECLARE @DeviceID UNIQUEIDENTIFIER
+    DECLARE @DeviceID INT
 
     SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     
@@ -134,7 +138,7 @@ BEGIN
         SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     END
 
-    DECLARE @DeviceAzureManagedID UNIQUEIDENTIFIER
+    DECLARE @DeviceAzureManagedID INT
     SELECT @DeviceAzureManagedID=DeviceAzureManagedID FROM Device WHERE DeviceID=@DeviceID
 
     IF @DeviceAzureManagedID IS NULL
