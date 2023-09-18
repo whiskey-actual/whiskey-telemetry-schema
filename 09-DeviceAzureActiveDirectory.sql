@@ -1,6 +1,6 @@
 CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     [DeviceAzureActiveDirectoryID]			INT                 NOT NULL    IDENTITY(1,1),
-    [AzureId]                               VARCHAR(255)        NULL,
+    [AzureId]                               VARCHAR(255)        NOT NULL,
     [AzureDeviceId]                         VARCHAR(255)        NULL,
     [AzureDeviceCategory]                   VARCHAR(255)        NULL,
     [AzureDeviceMetadata]                   VARCHAR(255)        NULL, -- always null
@@ -36,6 +36,11 @@ CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     CONSTRAINT [PK_DeviceAzureActiveDirectoryID] PRIMARY KEY CLUSTERED ([DeviceAzureActiveDirectoryID] ASC),
 );
 GO
+
+SET IDENTITY_INSERT DeviceAzureActiveDirectory ON
+INSERT INTO DeviceAzureActiveDirectory (DeviceAzureActiveDirectoryID, AzureId) VALUES (0, 'UNKNOWN')
+SET IDENTITY_INSERT DeviceAzureActiveDirectory OFF
+
 
 CREATE NONCLUSTERED INDEX IDX_DeviceAzureActiveDirectory_AzureID ON [dbo].[DeviceAzureActiveDirectory]([AzureId])
 GO
