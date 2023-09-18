@@ -134,7 +134,7 @@ BEGIN
     
     IF @DeviceID IS NULL
     BEGIN
-        INSERT INTO Device(DeviceName, DeviceObservedByAzureManaged) VALUES (@DeviceName, 1)
+        INSERT INTO Device(DeviceName) VALUES (@DeviceName)
         SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     END
 

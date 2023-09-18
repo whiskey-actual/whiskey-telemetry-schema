@@ -73,7 +73,7 @@ BEGIN
     SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     IF @DeviceID IS NULL
     BEGIN
-        INSERT INTO Device(DeviceName, DeviceObservedByConnectwise) VALUES (@DeviceName, 1)
+        INSERT INTO Device(DeviceName) VALUES (@DeviceName)
         SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     END
 
