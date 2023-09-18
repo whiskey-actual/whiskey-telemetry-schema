@@ -128,7 +128,7 @@ CREATE PROCEDURE dbo.sp_add_azureManaged_device
 AS
 BEGIN
 
-    DECLARE @DeviceID INT
+    DECLARE @DeviceID UNIQUEIDENTIFIER
 
     SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     

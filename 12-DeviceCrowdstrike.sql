@@ -73,7 +73,7 @@ CREATE PROCEDURE dbo.sp_add_crowdstrike_device
 AS
 BEGIN
 
-    DECLARE @DeviceID INT
+    DECLARE @DeviceID UNIQUEIDENTIFIER
     SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     IF @DeviceID IS NULL
     BEGIN

@@ -78,7 +78,7 @@ CREATE PROCEDURE dbo.sp_add_azureActiveDirectory_device
 AS
 BEGIN
 
-    DECLARE @DeviceID INT
+    DECLARE @DeviceID UNIQUEIDENTIFIER
 
     SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     
