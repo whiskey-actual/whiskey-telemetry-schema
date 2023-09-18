@@ -254,7 +254,7 @@ BEGIN
 
             SELECT @DeviceAzureManagedID=DeviceAzureManagedID FROM DeviceAzureManaged WHERE AzureManagedId=@AzureManagedId
 
-            UPDATE Device SET DeviceObservedByAzureManaged=1, DeviceAzureManagedID=@DeviceAzureManagedID WHERE DeviceID=@DeviceID
+            UPDATE Device SET DeviceAzureManagedID=@DeviceAzureManagedID WHERE DeviceID=@DeviceID
     END
     ELSE
     BEGIN

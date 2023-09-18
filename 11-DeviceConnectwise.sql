@@ -137,7 +137,7 @@ BEGIN
 
             SELECT @DeviceConnectwiseID=DeviceConnectwiseID FROM DeviceConnectwise WHERE ConnectwiseId=@ConnectwiseId
 
-            UPDATE Device SET DeviceObservedByConnectwise=1, DeviceConnectwiseID=@DeviceConnectwiseID WHERE DeviceID=@DeviceID
+            UPDATE Device SET DeviceConnectwiseID=@DeviceConnectwiseID WHERE DeviceID=@DeviceID
 
     END
     ELSE

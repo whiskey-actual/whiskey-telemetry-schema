@@ -147,7 +147,7 @@ BEGIN
 
             SELECT @DeviceCrowdstrikeID=DeviceCrowdstrikeID FROM DeviceCrowdstrike WHERE CrowdstrikeDeviceId=@CrowdstrikeDeviceId
 
-            UPDATE Device SET DeviceObservedByCrowdstrike=1, DeviceCrowdstrikeID=@DeviceCrowdstrikeID WHERE DeviceID=@DeviceID
+            UPDATE Device SET DeviceCrowdstrikeID=@DeviceCrowdstrikeID WHERE DeviceID=@DeviceID
 
     END
     ELSE

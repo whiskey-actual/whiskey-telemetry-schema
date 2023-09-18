@@ -160,7 +160,7 @@ BEGIN
 
             SELECT @DeviceAzureActiveDirectoryID=DeviceAzureActiveDirectoryID FROM DeviceAzureActiveDirectory WHERE AzureID=@AzureID
 
-            UPDATE Device SET DeviceObservedByAzureActiveDirectory=1, DeviceAzureActiveDirectoryID=@DeviceAzureActiveDirectoryID WHERE DeviceID=@DeviceID
+            UPDATE Device SET DeviceAzureActiveDirectoryID=@DeviceAzureActiveDirectoryID WHERE DeviceID=@DeviceID
     END
     ELSE
     BEGIN
