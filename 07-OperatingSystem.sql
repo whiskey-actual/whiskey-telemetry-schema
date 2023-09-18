@@ -28,6 +28,7 @@ BEGIN
         SELECT @OperatingSystemDescription='UNKNOWN'
     END
     ELSE
+    BEGIN
         SELECT @OperatingSystemDescription=LTRIM(RTRIM(@OperatingSystemDescription))
     END
 
