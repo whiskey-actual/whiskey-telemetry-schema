@@ -13,7 +13,7 @@ INSERT INTO OperatingSystem (OperatingSystemID, OperatingSystemDescription) VALU
 SET IDENTITY_INSERT OperatingSystem OFF;
 
 -- add index(es)
-CREATE NONCLUSTERED INDEX IDX_OperatingSystem_OperatingSystemDescription ON OperatingSystem(OperatingSystemDescription);
+CREATE UNIQUE NONCLUSTERED INDEX IDX_OperatingSystem_OperatingSystemDescription ON OperatingSystem(OperatingSystemDescription);
 GO
 
 -- add default sproc to get Id
@@ -25,35 +25,35 @@ BEGIN
 
     IF @OperatingSystemDescription IS NULL
     BEGIN
-        SELECT @OperatingSystemID = 0
+        SELECT @OperatingSystemDescription='UNKNOWN'
+    END
+    ELSE
+        SELECT @OperatingSystemDescription=LTRIM(RTRIM(@OperatingSystemDescription))
+    END
+
+    DECLARE @OperatingSystemNormalizedID INT
+
+    SELECT 
+        @OperatingSystemID=OperatingSystemID, 
+        @OperatingSystemNormalizedID=OperatingSystemNormalizedID 
+    FROM
+        OperatingSystem WITH(NOLOCK)
+    WHERE 
+        OperatingSystemDescription=@OperatingSystemDescription
+
+    IF @OperatingSystemID IS NULL
+    BEGIN
+        INSERT INTO OperatingSystem (OperatingSystemDescription) VALUES (@OperatingSystemDescription)
+        SELECT @OperatingSystemID=OperatingSystemID FROM OperatingSystem WITH(NOLOCK) WHERE OperatingSystemDescription=@OperatingSystemDescription
     END
     ELSE
     BEGIN
-
-        DECLARE @OperatingSystemNormalizedID INT
-
-        SELECT 
-            @OperatingSystemID=OperatingSystemID, 
-            @OperatingSystemNormalizedID=OperatingSystemNormalizedID 
-        FROM
-            OperatingSystem WITH(NOLOCK)
-        WHERE 
-            OperatingSystemDescription=@OperatingSystemDescription
-
-        IF @OperatingSystemID IS NULL
+        IF @OperatingSystemNormalizedID IS NOT NULL
         BEGIN
-            INSERT INTO OperatingSystem (OperatingSystemDescription) VALUES (@OperatingSystemDescription)
-            SELECT @OperatingSystemID=OperatingSystemID FROM OperatingSystem WITH(NOLOCK) WHERE OperatingSystemDescription=@OperatingSystemDescription
+            SELECT @OperatingSystemID=@OperatingSystemNormalizedID
         END
-        ELSE
-        BEGIN
-            IF @OperatingSystemNormalizedID IS NOT NULL
-            BEGIN
-                SELECT @OperatingSystemID=@OperatingSystemNormalizedID
-            END
-        END
-    
     END
+    
 
     RETURN
 
