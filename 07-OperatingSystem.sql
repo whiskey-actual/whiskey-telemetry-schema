@@ -2,7 +2,7 @@
 CREATE TABLE [dbo].[OperatingSystem] (
     [OperatingSystemID]			            INT                 NOT NULL    IDENTITY(1,1),
     [OperatingSystemDescription]            VARCHAR(255)        NOT NULL,
-    [OperatingSystemNormalizedID]           UNIQUEIDENTIFIER    NULL,
+    [OperatingSystemNormalizedID]           INT                 NULL,
     CONSTRAINT [PK_OperatingSystem] PRIMARY KEY CLUSTERED ([OperatingSystemID] ASC),
 );
 GO
@@ -30,7 +30,7 @@ BEGIN
     ELSE
     BEGIN
 
-        DECLARE @OperatingSystemNormalizedID UNIQUEIDENTIFIER
+        DECLARE @OperatingSystemNormalizedID INT
 
         SELECT 
             @OperatingSystemID=OperatingSystemID, 
