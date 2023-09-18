@@ -1,5 +1,5 @@
 CREATE TABLE [dbo].[Device] (
-    [DeviceID]					            UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
+    [DeviceID]					            INT                 NOT NULL,
     [DeviceName]                            VARCHAR(255)        NOT NULL,
     [DeviceIsActive]                        BIT                 NOT NULL    DEFAULT((0)),
     [DeviceFirstObserved]                   DATETIME2           NOT NULL    DEFAULT(SYSDATETIME()),

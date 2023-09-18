@@ -69,7 +69,7 @@ CREATE PROCEDURE dbo.sp_add_connectwise_device
 AS
 BEGIN
 
-    DECLARE @DeviceID UNIQUEIDENTIFIER
+    DECLARE @DeviceID INT
     SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
     IF @DeviceID IS NULL
     BEGIN

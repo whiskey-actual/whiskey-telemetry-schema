@@ -40,7 +40,7 @@ CREATE PROCEDURE dbo.sp_add_activeDirectory_device
 AS
 BEGIN
 
-    DECLARE @DeviceID UNIQUEIDENTIFIER
+    DECLARE @DeviceID INT
 
     SELECT @DeviceID=DeviceID FROM Device WITH(NOLOCK) WHERE DeviceName=@deviceName
     
