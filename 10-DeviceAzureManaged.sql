@@ -141,7 +141,7 @@ BEGIN
     DECLARE @DeviceAzureManagedID INT
     SELECT @DeviceAzureManagedID=DeviceAzureManagedID FROM Device WHERE DeviceID=@DeviceID
 
-    IF @DeviceAzureManagedID IS NULL
+    IF @DeviceAzureManagedID IS NULL OR @DeviceAzureManagedID=0
     BEGIN
         INSERT INTO
             DeviceAzureManaged (

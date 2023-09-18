@@ -25,7 +25,7 @@ BEGIN
 
     IF @OperatingSystemDescription IS NULL
     BEGIN
-        SELECT @OperatingSystemID = NULL
+        SELECT @OperatingSystemID = 0
     END
     ELSE
     BEGIN

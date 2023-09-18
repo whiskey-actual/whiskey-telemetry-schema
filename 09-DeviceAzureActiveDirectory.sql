@@ -96,7 +96,7 @@ BEGIN
     DECLARE @DeviceAzureActiveDirectoryID INT
     SELECT @DeviceAzureActiveDirectoryID=DeviceAzureActiveDirectoryID FROM Device WHERE DeviceID=@DeviceID
 
-    IF @DeviceAzureActiveDirectoryID IS NULL
+    IF @DeviceAzureActiveDirectoryID IS NULL OR @DeviceAzureActiveDirectoryID=0
     BEGIN
         INSERT INTO
             DeviceAzureActiveDirectory (

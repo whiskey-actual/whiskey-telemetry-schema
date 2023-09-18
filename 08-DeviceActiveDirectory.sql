@@ -61,7 +61,7 @@ BEGIN
     WHERE
         DeviceID=@DeviceID
 
-    IF @DeviceActiveDirectoryID IS NULL
+    IF @DeviceActiveDirectoryID IS NULL OR @DeviceActiveDirectoryID=0
     BEGIN
         INSERT INTO
             DeviceActiveDirectory (

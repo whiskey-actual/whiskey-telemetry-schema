@@ -80,7 +80,7 @@ BEGIN
     DECLARE @DeviceConnectwiseID INT
     SELECT @DeviceConnectwiseID=DeviceConnectwiseID FROM Device WHERE DeviceID=@DeviceID
 
-    IF @DeviceConnectwiseID IS NULL
+    IF @DeviceConnectwiseID IS NULL OR @DeviceConnectwiseID=0
     BEGIN
         INSERT INTO
             DeviceConnectwise (

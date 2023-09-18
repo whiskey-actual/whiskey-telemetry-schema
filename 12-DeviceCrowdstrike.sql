@@ -84,7 +84,7 @@ BEGIN
     DECLARE @DeviceCrowdstrikeID INT
     SELECT @DeviceCrowdstrikeID=DeviceCrowdstrikeID FROM Device WHERE DeviceID=@DeviceID
 
-    IF @DeviceCrowdstrikeID IS NULL
+    IF @DeviceCrowdstrikeID IS NULL OR @DeviceCrowdstrikeID=0
     BEGIN
         INSERT INTO
             DeviceCrowdstrike (
