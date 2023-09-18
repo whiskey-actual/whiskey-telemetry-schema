@@ -1,24 +1,24 @@
 CREATE TABLE [dbo].[Device] (
     [DeviceID]					            UNIQUEIDENTIFIER    NOT NULL    DEFAULT NEWSEQUENTIALID(),
     [DeviceName]                            VARCHAR(255)        NOT NULL,
-    [DeviceIsActive]                        BIT                 NOT NULL    DEFAULT(0),
+    [DeviceIsActive]                        BIT                 NOT NULL    DEFAULT((0)),
     [DeviceFirstObserved]                   DATETIME2           NOT NULL    DEFAULT(SYSDATETIME()),
     [DeviceLastObserved]                    DATETIME2           NOT NULL    DEFAULT(SYSDATETIME()),
 
     -- AD
-    [DeviceActiveDirectoryID]               INT                 NOT NULL    DEFAULT(0),
+    [DeviceActiveDirectoryID]               INT                 NOT NULL    DEFAULT((0)),
 
     -- AAD
-    [DeviceAzureActiveDirectoryID]          INT                 NOT NULL    DEFAULT(0),
+    [DeviceAzureActiveDirectoryID]          INT                 NOT NULL    DEFAULT((0)),
 
     -- Azure MDM
-    [DeviceAzureManagedID]                  INT                 NOT NULL    DEFAULT(0),
+    [DeviceAzureManagedID]                  INT                 NOT NULL    DEFAULT((0)),
 
     -- Connectwise
-    [DeviceConnectwiseID]                   INT                 NOT NULL    DEFAULT(0),
+    [DeviceConnectwiseID]                   INT                 NOT NULL    DEFAULT((0)),
 
     -- Crowdstrike
-    [DeviceCrowdstrikeID]                   INT                 NOT NULL    DEFAULT(0),
+    [DeviceCrowdstrikeID]                   INT                 NOT NULL    DEFAULT((0)),
 
     -- keys
     CONSTRAINT [PK_DeviceID] PRIMARY KEY CLUSTERED ([DeviceID] ASC),
