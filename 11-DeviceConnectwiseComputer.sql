@@ -1,6 +1,7 @@
-CREATE TABLE [dbo].[DeviceConnectwiseComputer] (
+CREATE TABLE [dbo].[DeviceConnectwise] (
     [DeviceConnectwiseComputerID]       	INT                 NOT NULL    IDENTITY(1,1),
     [ConnectwiseId]                         VARCHAR(255)        NOT NULL,
+    
     [ConnectwiseDeviceType]                 VARCHAR(255)        NULL, 
     [ConnectwiseLocation]                   VARCHAR(255)        NULL, 
     [ConnectwiseClient]                     VARCHAR(255)        NULL, 
@@ -12,7 +13,6 @@ CREATE TABLE [dbo].[DeviceConnectwiseComputer] (
     [ConnectwiseIpAddress]                  VARCHAR(255)        NULL, 
     [ConnectwiseMacAddress]                 VARCHAR(255)        NULL,
     [ConnectwiseLastUserName]               VARCHAR(255)        NULL, 
-    [ConnectwiseType]                       VARCHAR(255)        NULL, 
     [ConnectwiseStatus]                     VARCHAR(255)        NULL, 
     [ConnectwiseSerialNumber]               VARCHAR(255)        NULL, 
     [ConnectwiseBiosManufacturer]           VARCHAR(255)        NULL, 
@@ -22,18 +22,19 @@ CREATE TABLE [dbo].[DeviceConnectwiseComputer] (
     [ConnectwiseTotalMemory]                BIGINT              NULL, 
     [ConnectwiseFreeMemory]                 BIGINT              NULL, 
     -- dates 
-    [ConnectwiseLastObserved]               DATETIME2           NULL, 
     [ConnectwiseFirstSeen]                  DATETIME2           NULL, 
+    [ConnectwiseLastObserved]               DATETIME2           NULL, 
     [ConnectwiseWindowsUpdateDate]          DATETIME2           NULL,
     [ConnectwiseAntivirusDefinitionDate]    DATETIME2           NULL,
+    [ConnectwiseAssetDate]                  DATETIME2           NULL,
  
-    CONSTRAINT [PK_DeviceConnectwiseComputerID] PRIMARY KEY CLUSTERED ([DeviceConnectwiseComputerID] ASC),
+    CONSTRAINT [PK_DeviceConnectwiseID] PRIMARY KEY CLUSTERED ([DeviceConnectwiseID] ASC),
 )
 GO
 
-SET IDENTITY_INSERT DeviceConnectwiseComputer ON
-INSERT INTO DeviceConnectwiseComputer (DeviceConnectwiseComputerID, ConnectwiseId) VALUES (0, 'UNKNOWN')
-SET IDENTITY_INSERT DeviceConnectwiseComputer OFF
+SET IDENTITY_INSERT DeviceConnectwise ON
+INSERT INTO DeviceConnectwise (DeviceConnectwiseID, ConnectwiseId) VALUES (0, 'UNKNOWN')
+SET IDENTITY_INSERT DeviceConnectwise OFF
 
-CREATE NONCLUSTERED INDEX IDX_DeviceConnectwiseComputer_ConnectwiseId ON [dbo].[DeviceConnectwiseComputer]([ConnectwiseId])
+CREATE NONCLUSTERED INDEX IDX_DeviceConnectwise_ConnectwiseId ON [dbo].[DeviceConnectwise]([ConnectwiseId])
 GO
