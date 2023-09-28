@@ -1,5 +1,5 @@
 CREATE TABLE [dbo].[DeviceConnectwise] (
-    [DeviceConnectwiseComputerID]       	INT                 NOT NULL    IDENTITY(1,1),
+    [DeviceConnectwiseID]       	        INT                 NOT NULL    IDENTITY(1,1),
     [ConnectwiseId]                         VARCHAR(255)        NOT NULL,
     
     [ConnectwiseDeviceType]                 VARCHAR(255)        NULL, 
