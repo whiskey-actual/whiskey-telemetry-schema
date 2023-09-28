@@ -1,3 +1,5 @@
+
+
 CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     [DeviceAzureActiveDirectoryID]			INT                 NOT NULL    IDENTITY(1,1),
     [AzureId]                               VARCHAR(255)        NOT NULL,
@@ -42,7 +44,7 @@ INSERT INTO DeviceAzureActiveDirectory (DeviceAzureActiveDirectoryID, AzureId) V
 SET IDENTITY_INSERT DeviceAzureActiveDirectory OFF
 
 
-CREATE NONCLUSTERED INDEX IDX_DeviceAzureActiveDirectory_AzureID ON [dbo].[DeviceAzureActiveDirectory]([AzureId])
+CREATE UNIQUE NONCLUSTERED INDEX IDX_DeviceAzureActiveDirectory_AzureID ON [dbo].[DeviceAzureActiveDirectory]([AzureId])
 GO
 
 
