@@ -15,7 +15,7 @@ CREATE TABLE [dbo].[DeviceConnectwise] (
     [ConnectwiseLastUserName]               VARCHAR(255)        NULL, 
     [ConnectwiseStatus]                     VARCHAR(255)        NULL, 
     [ConnectwiseSerialNumber]               VARCHAR(255)        NULL, 
-    [ConnectwiseBiosManufacturer]           VARCHAR(255)        NULL, 
+    [ConnectwiseManufacturer]               VARCHAR(255)        NULL, 
     [ConnectwiseModel]                      VARCHAR(255)        NULL, 
     [ConnectwiseDescription]                VARCHAR(255)        NULL, 
     -- numbers  
