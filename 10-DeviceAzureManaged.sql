@@ -98,7 +98,7 @@ CREATE PROCEDURE dbo.sp_add_azureManaged_device
     @AzureManagedPhoneNumber                               VARCHAR(255),
     @AzureManagedAndroidSecurityPatchLevel                 VARCHAR(255),
     @AzureManagedUserDisplayName                           VARCHAR(255),
-    @AzureManagedConfigurationManagerClientEnabedFeatures  VARCHAR(255),
+    @AzureManagedConfigurationManagerClientEnabledFeatures VARCHAR(255),
     @AzureManagedWiFiMACAddress                            VARCHAR(255),
     @AzureManagedDeviceHealthAttestationState              VARCHAR(255),
     @AzureManagedSubscriberCarrier                         VARCHAR(255),
