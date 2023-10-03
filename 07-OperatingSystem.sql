@@ -17,5 +17,10 @@ INSERT INTO OperatingSystem (OperatingSystemID, OperatingSystemDescription) VALU
 SET IDENTITY_INSERT OperatingSystem OFF;
 
 -- add index(es)
-CREATE UNIQUE NONCLUSTERED INDEX IDX_OperatingSystem_OperatingSystemDescription ON OperatingSystem(OperatingSystemDescription);
+CREATE UNIQUE NONCLUSTERED INDEX IDX_OperatingSystem_Complex_01 ON OperatingSystem(
+    OperatingSystemDescription,
+    OperatingSystemVersionMajor,
+    OperatingSystemVersionMinor,
+    OperatingSystemBuild
+);
 GO
