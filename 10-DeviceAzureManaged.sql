@@ -28,7 +28,7 @@ CREATE TABLE [dbo].[DeviceAzureManaged] (
     [AzureManagedPhoneNumber]                               VARCHAR(255)        NULL,
     [AzureManagedAndroidSecurityPatchLevel]                 VARCHAR(255)        NULL,
     [AzureManagedUserDisplayName]                           VARCHAR(255)        NULL,
-    [AzureManagedConfigurationManagerClientEnabedFeatures]  VARCHAR(255)        NULL,
+    [AzureManagedConfigurationManagerClientEnabledFeatures] VARCHAR(255)        NULL,
     [AzureManagedWiFiMACAddress]                            VARCHAR(255)        NULL,
     [AzureManagedDeviceHealthAttestationState]              VARCHAR(255)        NULL,
     [AzureManagedSubscriberCarrier]                         VARCHAR(255)        NULL,
