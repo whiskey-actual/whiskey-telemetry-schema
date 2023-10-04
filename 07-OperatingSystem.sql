@@ -26,7 +26,7 @@ CREATE TABLE [dbo].[OperatingSystemVariant] (
 GO
 
 SET IDENTITY_INSERT OperatingSystemVariant ON;
-INSERT INTO OperatingSystemVariant (OperatingSystemVarianrID, OperatingSystemVariantDescription) VALUES (0, 'UNKNOWN')
+INSERT INTO OperatingSystemVariant (OperatingSystemVariantID, OperatingSystemVariantDescription) VALUES (0, 'UNKNOWN')
 SET IDENTITY_INSERT OperatingSystemVariant OFF;
 GO
 
@@ -42,10 +42,19 @@ CREATE TABLE [dbo].[OperatingSystemVersion] (
 GO
 
 SET IDENTITY_INSERT OperatingSystemVersion ON;
-INSERT INTO OperatingSystemVersion (OperatingSystemVarianrID, OperatingSystemVersionDescription) VALUES (0, 'UNKNOWN')
+INSERT INTO OperatingSystemVersion (OperatingSystemVersionID, OperatingSystemVersionDescription) VALUES (0, 'UNKNOWN')
 SET IDENTITY_INSERT OperatingSystemVersion OFF;
 GO
 
 CREATE UNIQUE NONCLUSTERED INDEX IDX_OperatingSystemVersion_OperatingSystemVersionDescription ON OperatingSystemVersion(OperatingSystemVersionDescription);
 GO
 
+--------------------------------------------------------------------------------------------------------------
+CREATE TABLE [dbo].[OperatingSystemXRef] (
+    [OperatingSystemXRefID]                 INT                 NOT NULL    IDENTITY(1,1),
+    [OperatingSystemID]                     INT                 NOT NULL,
+    [OperatingSystemVariantID]              INT                 NOT NULL,
+    [OperatingSystemVersionID]              INT                 NOT NULL,
+    CONSTRAINT [PK_OperatingSystemXRef] PRIMARY KEY CLUSTERED ([OperatingSystemXRefID] ASC)
+);
+GO
