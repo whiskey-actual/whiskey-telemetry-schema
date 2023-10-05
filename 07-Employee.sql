@@ -24,6 +24,7 @@ CREATE TABLE [dbo].[Employee] (
     EmployeeActiveDirectoryBadPasswordTime      DATETIME2       NULL,
     EmployeeActiveDirectoryLastLogon            DATETIME2       NULL,
     EmployeeActiveDirectoryLastLogonTimestamp   DATETIME2       NULL,
+    EmployeeActiveDirectoryLastSeen             DATETIME2       NULL,
     CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED ([EmployeeID] ASC)
 )
 GO
