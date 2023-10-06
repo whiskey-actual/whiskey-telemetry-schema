@@ -1,7 +1,7 @@
 CREATE TABLE [dbo].[Employee] (
     EmployeeID                          INT             NOT NULL    IDENTITY(1,1),  
     
-    EmployeeEmailAddress                VARCHAR(255)    NOT NULL,
+    EmployeeEmailAddress                VARCHAR(255)    NULL,
     
     ad_DN                               VARCHAR(255)    NULL,
     ad_CN                               VARCHAR(255)    NULL,
@@ -72,7 +72,7 @@ GO
 CREATE UNIQUE NONCLUSTERED INDEX IDX_Employee_ad_DN ON Employee(ad_DN) WHERE ad_DN IS NOT NULL
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX IDX_Employee_ad_DN ON Employee(aad_Id) WHERE aad_Id IS NOT NULL
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Employee_aad_Id ON Employee(aad_Id) WHERE aad_Id IS NOT NULL
 GO
 
 SET IDENTITY_INSERT Employee ON
