@@ -3,6 +3,7 @@ CREATE TABLE [dbo].[Employee] (
     
     EmployeeEmailAddress                VARCHAR(255)    NULL,
     
+    ad_Observed                         BIT             NOT NULL DEFAULT((0)),
     ad_DN                               VARCHAR(255)    NULL,
     ad_CN                               VARCHAR(255)    NULL,
     ad_SN                               VARCHAR(255)    NULL,
@@ -29,6 +30,7 @@ CREATE TABLE [dbo].[Employee] (
     ad_LastLogonTimestamp               DATETIME2       NULL,
     ad_LastSeen                         DATETIME2       NULL,
 
+    aad_Observed                        BIT             NOT NULL DEFAULT((0)),
     aad_UserPrincipalName               VARCHAR(255)    NULL,
     aad_Id                              VARCHAR(255)    NULL,
     aad_BusinessPhone                   VARCHAR(255)    NULL,
@@ -60,13 +62,14 @@ CREATE TABLE [dbo].[Employee] (
     aad_CreatedDateTime                 DATETIME2       NULL,
     aad_DeletedDateTime                 DATETIME2       NULL,
     aad_LastPasswordChangeDateTime      DATETIME2       NULL,
+    aad_LastSeen                        DATETIME2       NULL,
 
 
     CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED ([EmployeeID] ASC)
 )
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX IDX_Employee_EmployeeEmailAddress ON Employee(EmployeeEmailAddress)
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Employee_EmployeeEmailAddress ON Employee(EmployeeEmailAddress) WHERE ad_DN IS NOT NULL
 GO
 
 CREATE UNIQUE NONCLUSTERED INDEX IDX_Employee_ad_DN ON Employee(ad_DN) WHERE ad_DN IS NOT NULL
