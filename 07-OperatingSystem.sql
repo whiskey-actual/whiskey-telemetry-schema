@@ -60,6 +60,6 @@ CREATE TABLE [dbo].[OperatingSystemXRef] (
 GO
 
 SET IDENTITY_INSERT OperatingSystemXRef ON;
-INSERT INTO OperatingSystemXRef (OperatingSystemID, OperatingSystemVariantID, OperatingSystemVersionID) VALUES (0, 0,0 )
+INSERT INTO OperatingSystemXRef (OperatingSystemXRefID, OperatingSystemID, OperatingSystemVariantID, OperatingSystemVersionID) VALUES (0, 0, 0, 0)
 SET IDENTITY_INSERT OperatingSystemXRef OFF;
 GO
