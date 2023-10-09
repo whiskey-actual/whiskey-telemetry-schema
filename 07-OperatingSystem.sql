@@ -6,15 +6,16 @@ CREATE TABLE [dbo].[OperatingSystem] (
 );
 GO
 
+-- add index(es)
+CREATE UNIQUE NONCLUSTERED INDEX IDX_OperatingSystem_OperatingSystemDescription ON OperatingSystem(OperatingSystemDescription);
+GO
+
 -- add default/unknown row with ID 0
 SET IDENTITY_INSERT OperatingSystem ON;
 INSERT INTO OperatingSystem (OperatingSystemID, OperatingSystemDescription) VALUES (0, 'UNKNOWN')
 SET IDENTITY_INSERT OperatingSystem OFF;
 GO
 
--- add index(es)
-CREATE UNIQUE NONCLUSTERED INDEX IDX_OperatingSystem_OperatingSystemDescription ON OperatingSystem(OperatingSystemDescription);
-GO
 
 
 --------------------------------------------------------------------------------------------------------------
@@ -27,13 +28,15 @@ CREATE TABLE [dbo].[OperatingSystemVariant] (
 );
 GO
 
+CREATE UNIQUE NONCLUSTERED INDEX IDX_OperatingSystemVariant_OperatingSystemVariantDescription ON OperatingSystemVariant(OperatingSystemVariantDescription);
+GO
+
 SET IDENTITY_INSERT OperatingSystemVariant ON;
 INSERT INTO OperatingSystemVariant (OperatingSystemVariantID, OperatingSystemVariantDescription, OperatingSystemID) VALUES (0, 'UNKNOWN', 0)
 SET IDENTITY_INSERT OperatingSystemVariant OFF;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX IDX_OperatingSystemVariant_OperatingSystemVariantDescription ON OperatingSystemVariant(OperatingSystemVariantDescription);
-GO
+
 
 --------------------------------------------------------------------------------------------------------------
 CREATE TABLE [dbo].[OperatingSystemVersion] (
@@ -45,10 +48,11 @@ CREATE TABLE [dbo].[OperatingSystemVersion] (
 );
 GO
 
+CREATE UNIQUE NONCLUSTERED INDEX IDX_OperatingSystemVersion_Complex_01 ON OperatingSystemVersion(OperatingSystemVersionDescription, OperatingSystemVariantID);
+GO
+
 SET IDENTITY_INSERT OperatingSystemVersion ON;
 INSERT INTO OperatingSystemVersion (OperatingSystemVersionID, OperatingSystemVersionDescription, OperatingSystemVariantID) VALUES (0, 'UNKNOWN', 0)
 SET IDENTITY_INSERT OperatingSystemVersion OFF;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX IDX_OperatingSystemVersion_OperatingSystemVersionDescription ON OperatingSystemVersion(OperatingSystemVersionDescription);
-GO
