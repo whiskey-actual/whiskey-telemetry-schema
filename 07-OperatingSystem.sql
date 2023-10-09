@@ -58,3 +58,8 @@ CREATE TABLE [dbo].[OperatingSystemXRef] (
     CONSTRAINT [PK_OperatingSystemXRef] PRIMARY KEY CLUSTERED ([OperatingSystemXRefID] ASC)
 );
 GO
+
+SET IDENTITY_INSERT OperatingSystemXRef ON;
+INSERT INTO OperatingSystemXRef (OperatingSystemID, OperatingSystemVariantID, OperatingSystemVersionID) VALUES (0, 0,0 )
+SET IDENTITY_INSERT OperatingSystemXRef OFF;
+GO
