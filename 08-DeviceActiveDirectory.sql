@@ -14,7 +14,7 @@ CREATE TABLE [dbo].[DeviceActiveDirectory] (
     [ActiveDirectoryLastLogonTimestamp]         DATETIME2           NULL,
     [ActiveDirectoryLastSeen]                   DATETIME2           NULL,
     CONSTRAINT [PK_DeviceActiveDirectoryID] PRIMARY KEY CLUSTERED ([DeviceActiveDirectoryID] ASC),
-    CONSTRAINT [FK_DeviceActiveDirectory_OperatingSystem] FOREIGN KEY (ActiveDirectoryOperatingSystemID) REFERENCES OperatingSystem(OperatingSystemID)
+    CONSTRAINT [FK_DeviceActiveDirectory_OperatingSystemVersion] FOREIGN KEY (ActiveDirectoryOperatingSystemVersionID) REFERENCES OperatingSystemVersion(OperatingSystemVersionID)
 );
 GO
 
