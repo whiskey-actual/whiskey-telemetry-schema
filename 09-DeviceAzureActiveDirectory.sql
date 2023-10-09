@@ -20,8 +20,7 @@ CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     [AzureSourceType]                       VARCHAR(255)        NULL, -- always null
     [AzureTrustType]                        VARCHAR(255)        NULL,
     -- int
-    [AzureOperatingSystemVersionID]         INT                 NOT NULL    DEFAULT((0)),
-    [AzureOperatingSystemVariantID]         INT                 NOT NULL    DEFAULT((0)),
+    [AzureOperatingSystemXRefID]            INT                 NOT NULL    DEFAULT((0)),
     -- dates
     [AzureDeletedDateTime]                  DATETIME2           NULL,
     [AzureApproximateLastSignInDateTime]    DATETIME2           NULL,
@@ -37,8 +36,7 @@ CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     [AzureIsRooted]                         BIT                 NOT NULL DEFAULT((0)),
     
     CONSTRAINT [PK_DeviceAzureActiveDirectoryID] PRIMARY KEY CLUSTERED ([DeviceAzureActiveDirectoryID] ASC),
-    CONSTRAINT [FK_DeviceAzureActiveDirectory_OperatingSystemVersion] FOREIGN KEY (AzureOperatingSystemVersionID) REFERENCES OperatingSystemVersion(OperatingSystemVersionID),
-    CONSTRAINT [FK_DeviceAzureActiveDirectory_OperatingSystemVariant] FOREIGN KEY (AzureOperatingSystemVariantID) REFERENCES OperatingSystemVariant(OperatingSystemVariantID),
+    CONSTRAINT FK_DeviceAzureActiveDirectory_OperatingSystemXRef FOREIGN KEY (AzureOperatingSystemXRefID) REFERENCES OperatingSystemXRef(OperatingSystemXRefID)
 );
 GO
 

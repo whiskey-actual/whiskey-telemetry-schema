@@ -20,9 +20,7 @@ GO
 CREATE TABLE [dbo].[OperatingSystemVersion] (
     [OperatingSystemVersionID]              INT                 NOT NULL    IDENTITY(1,1),
     [OperatingSystemVersionDescription]     VARCHAR(255)        NOT NULL,
-    [OperatingSystemID]                     INT                 NOT NULL    DEFAULT((0)),
-    CONSTRAINT [PK_OperatingSystemVersion] PRIMARY KEY CLUSTERED ([OperatingSystemVersionID] ASC),
-    CONSTRAINT FK_OperatingSystemVersion_OperatingSystem FOREIGN KEY (OperatingSystemID) REFERENCES OperatingSystem(OperatingSystemID)
+    CONSTRAINT [PK_OperatingSystemVersion] PRIMARY KEY CLUSTERED ([OperatingSystemVersionID] ASC)
 );
 GO
 
@@ -38,9 +36,7 @@ GO
 CREATE TABLE [dbo].[OperatingSystemVariant] (
     [OperatingSystemVariantID]              INT                 NOT NULL    IDENTITY(1,1),
     [OperatingSystemVariantDescription]     VARCHAR(255)        NOT NULL,
-    [OperatingSystemID]                     INT                 NOT NULL    DEFAULT((0)),
-    CONSTRAINT [PK_OperatingSystemVariant] PRIMARY KEY CLUSTERED ([OperatingSystemVariantID] ASC),
-    CONSTRAINT FK_OperatingSystemVersion_OperatingSystem FOREIGN KEY (OperatingSystemID) REFERENCES OperatingSystem(OperatingSystemID)
+    CONSTRAINT [PK_OperatingSystemVariant] PRIMARY KEY CLUSTERED ([OperatingSystemVariantID] ASC)
 );
 GO
 
@@ -50,4 +46,19 @@ SET IDENTITY_INSERT OperatingSystemVariant OFF;
 GO
 
 CREATE UNIQUE NONCLUSTERED INDEX IDX_OperatingSystemVariant_OperatingSystemVariantDescription ON OperatingSystemVariant(OperatingSystemVariantDescription);
+GO
+
+--------------------------------------------------------------------------------------------------------------
+CREATE TABLE [dbo].[OperatingSystemXRef] (
+    [OperatingSystemXRefID]                 INT                 NOT NULL    IDENTITY(1,1),
+    [OperatingSystemID]                     INT                 NOT NULL,
+    [OperatingSystemVersionID]              INT                 NOT NULL,
+    [OperatingSystemVariantID]              INT                 NOT NULL,
+    CONSTRAINT [PK_OperatingSystemXRef] PRIMARY KEY CLUSTERED ([OperatingSystemXRefID] ASC)
+);
+GO
+
+SET IDENTITY_INSERT OperatingSystemXRef ON;
+INSERT INTO OperatingSystemXRef (OperatingSystemXRefID, OperatingSystemID, OperatingSystemVersionID, OperatingSystemVariantID) VALUES (0, 0, 0, 0)
+SET IDENTITY_INSERT OperatingSystemXRef OFF;
 GO
