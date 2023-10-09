@@ -16,11 +16,12 @@ CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     [AzureManufacturer]                     VARCHAR(255)        NULL,
     [AzureMDMAppId]                         VARCHAR(255)        NULL,
     [AzureModel]                            VARCHAR(255)        NULL,
-    [AzureOperatingSystem]                  VARCHAR(255)        NULL, -- always null
-    [AzureOperatingSystemVersion]           VARCHAR(255)        NULL,
     [AzureProfileType]                      VARCHAR(255)        NULL,
     [AzureSourceType]                       VARCHAR(255)        NULL, -- always null
     [AzureTrustType]                        VARCHAR(255)        NULL,
+    -- int
+    [AzureOperatingSystemVersionID]         INT                 NOT NULL    DEFAULT((0)),
+    [AzureOperatingSystemVariantID]         INT                 NOT NULL    DEFAULT((0)),
     -- dates
     [AzureDeletedDateTime]                  DATETIME2           NULL,
     [AzureApproximateLastSignInDateTime]    DATETIME2           NULL,
@@ -36,6 +37,8 @@ CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     [AzureIsRooted]                         BIT                 NOT NULL DEFAULT((0)),
     
     CONSTRAINT [PK_DeviceAzureActiveDirectoryID] PRIMARY KEY CLUSTERED ([DeviceAzureActiveDirectoryID] ASC),
+    CONSTRAINT [FK_DeviceAzureActiveDirectory_OperatingSystemVersion] FOREIGN KEY (AzureOperatingSystemVersionID) REFERENCES OperatingSystemVersion(OperatingSystemVersionID),
+    CONSTRAINT [FK_DeviceAzureActiveDirectory_OperatingSystemVariant] FOREIGN KEY (AzureOperatingSystemVariantID) REFERENCES OperatingSystemVariant(OperatingSystemVariantID),
 );
 GO
 
@@ -47,168 +50,3 @@ SET IDENTITY_INSERT DeviceAzureActiveDirectory OFF
 CREATE UNIQUE NONCLUSTERED INDEX IDX_DeviceAzureActiveDirectory_AzureID ON [dbo].[DeviceAzureActiveDirectory]([AzureId])
 GO
 
-
-CREATE PROCEDURE dbo.sp_add_azureActiveDirectory_device
-    @deviceName                             VARCHAR(255),
-    @AzureId                                VARCHAR(255),
-    @AzureDeviceCategory			        VARCHAR(255),
-    @AzureDeviceId				            VARCHAR(255),
-    @AzureDeviceMetadata			        VARCHAR(255),
-    @AzureDeviceOwnership			        VARCHAR(255),
-    @AzureDeviceVersion				        VARCHAR(255),
-    @AzureDomainName				        VARCHAR(255),
-    @AzureEnrollmentProfileType		        VARCHAR(255),
-    @AzureEnrollmentType			        VARCHAR(255),
-    @AzureExternalSourceName		        VARCHAR(255),
-    @AzureManagementType			        VARCHAR(255),
-    @AzureManufacturer				        VARCHAR(255),
-    @AzureMDMAppId				            VARCHAR(255),
-    @AzureModel				                VARCHAR(255),
-    @AzureOperatingSystem			        VARCHAR(255),
-    @AzureOperatingSystemVersion	        VARCHAR(255),
-    @AzureProfileType				        VARCHAR(255),
-    @AzureSourceType				        VARCHAR(255),
-    @AzureTrustType				            VARCHAR(255),
-    -- dates
-    @AzureDeletedDateTime                   DATETIME2,
-    @AzureApproximateLastSignInDateTime     DATETIME2,
-    @AzureComplianceExpirationDateTime      DATETIME2,
-    @AzureCreatedDateTime                   DATETIME2,
-    @AzureOnPremisesLastSyncDateTime        DATETIME2,
-    @AzureRegistrationDateTime              DATETIME2,
-    -- booleans
-    @AzureOnPremisesSyncEnabled		        BIT,
-    @AzureAccountEnabled                    BIT,
-    @AzureIsCompliant                       BIT,
-    @AzureIsManaged                         BIT,
-    @AzureIsRooted                          BIT
-AS
-BEGIN
-
-    DECLARE @DeviceID INT
-
-    SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
-    
-    IF @DeviceID IS NULL
-    BEGIN
-        INSERT INTO Device(DeviceName) VALUES (@DeviceName)
-        SELECT @DeviceID=DeviceID FROM Device WHERE DeviceName=@deviceName
-    END
-
-    DECLARE @DeviceAzureActiveDirectoryID INT
-    SELECT @DeviceAzureActiveDirectoryID=DeviceAzureActiveDirectoryID FROM Device WHERE DeviceID=@DeviceID
-
-    IF @DeviceAzureActiveDirectoryID IS NULL OR @DeviceAzureActiveDirectoryID=0
-    BEGIN
-        INSERT INTO
-            DeviceAzureActiveDirectory (
-                AzureId,
-                AzureDeviceCategory,
-                AzureDeviceId,
-                AzureDeviceMetadata,
-                AzureDeviceOwnership,
-                AzureDeviceVersion,
-                AzureDomainName,
-                AzureEnrollmentProfileType,
-                AzureEnrollmentType,
-                AzureExternalSourceName,
-                AzureManagementType,
-                AzureManufacturer,
-                AzureMDMAppId,
-                AzureModel,
-                AzureOperatingSystem,
-                AzureOperatingSystemVersion,
-                AzureProfileType,
-                AzureSourceType,
-                AzureTrustType,
-                AzureDeletedDateTime,
-                AzureApproximateLastSignInDateTime,
-                AzureComplianceExpirationDateTime,
-                AzureCreatedDateTime,
-                AzureOnPremisesLastSyncDateTime,
-                AzureRegistrationDateTime,
-                AzureOnPremisesSyncEnabled,
-                AzureAccountEnabled,
-                AzureIsCompliant,
-                AzureIsManaged,
-                AzureIsRooted
-            ) VALUES (
-                @AzureId,
-                @AzureDeviceCategory,
-                @AzureDeviceId,
-                @AzureDeviceMetadata,
-                @AzureDeviceOwnership,
-                @AzureDeviceVersion,
-                @AzureDomainName,
-                @AzureEnrollmentProfileType,
-                @AzureEnrollmentType,
-                @AzureExternalSourceName,
-                @AzureManagementType,
-                @AzureManufacturer,
-                @AzureMDMAppId,
-                @AzureModel,
-                @AzureOperatingSystem,
-                @AzureOperatingSystemVersion,
-                @AzureProfileType,
-                @AzureSourceType,
-                @AzureTrustType,
-                @AzureDeletedDateTime,
-                @AzureApproximateLastSignInDateTime,
-                @AzureComplianceExpirationDateTime,
-                @AzureCreatedDateTime,
-                @AzureOnPremisesLastSyncDateTime,
-                @AzureRegistrationDateTime,
-                @AzureOnPremisesSyncEnabled,
-                @AzureAccountEnabled,
-                @AzureIsCompliant,
-                @AzureIsManaged,
-                @AzureIsRooted
-            )
-
-            SELECT @DeviceAzureActiveDirectoryID=DeviceAzureActiveDirectoryID FROM DeviceAzureActiveDirectory WHERE AzureID=@AzureID
-
-            UPDATE Device SET DeviceAzureActiveDirectoryID=@DeviceAzureActiveDirectoryID WHERE DeviceID=@DeviceID
-    END
-    ELSE
-    BEGIN
-
-        UPDATE
-            DeviceAzureActiveDirectory
-        SET
-            AzureId=@AzureId,
-            AzureDeviceCategory=@AzureDeviceCategory,
-            AzureDeviceId=@AzureDeviceId,
-            AzureDeviceMetadata=@AzureDeviceMetadata,
-            AzureDeviceOwnership=@AzureDeviceOwnership,
-            AzureDeviceVersion=@AzureDeviceVersion,
-            AzureDomainName=@AzureDomainName,
-            AzureEnrollmentProfileType=@AzureEnrollmentProfileType,
-            AzureEnrollmentType=@AzureEnrollmentType,
-            AzureExternalSourceName=@AzureExternalSourceName,
-            AzureManagementType=@AzureManagementType,
-            AzureManufacturer=@AzureManufacturer,
-            AzureMDMAppId=@AzureMDMAppId,
-            AzureModel=@AzureModel,
-            AzureOperatingSystem=@AzureOperatingSystem,
-            AzureOperatingSystemVersion=@AzureOperatingSystemVersion,
-            AzureProfileType=@AzureProfileType,
-            AzureSourceType=@AzureSourceType,
-            AzureTrustType=@AzureTrustType,
-            AzureDeletedDateTime=@AzureDeletedDateTime,
-            AzureApproximateLastSignInDateTime=@AzureApproximateLastSignInDateTime,
-            AzureComplianceExpirationDateTime=@AzureComplianceExpirationDateTime,
-            AzureCreatedDateTime=@AzureCreatedDateTime,
-            AzureOnPremisesLastSyncDateTime=@AzureOnPremisesLastSyncDateTime,
-            AzureRegistrationDateTime=@AzureRegistrationDateTime,
-            AzureOnPremisesSyncEnabled=@AzureOnPremisesSyncEnabled,
-            AzureAccountEnabled=@AzureAccountEnabled,
-            AzureIsCompliant=@AzureIsCompliant,
-            AzureIsManaged=@AzureIsManaged,
-            AzureIsRooted=@AzureIsRooted
-        WHERE
-            DeviceAzureActiveDirectoryID=@DeviceAzureActiveDirectoryID
-    END
-
-
-
-END
