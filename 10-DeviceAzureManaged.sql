@@ -4,11 +4,10 @@ CREATE TABLE [dbo].[DeviceAzureManaged] (
     [AzureManagedDeviceName]                                VARCHAR(255)        NULL,
     [AzureManagedUserId]                                    VARCHAR(255)        NULL,
     [AzureManagedDeviceOwnerType]                           VARCHAR(255)        NULL,
-    [AzureManagedOperatingSystem]                           VARCHAR(255)        NULL,
     [AzureManagedComplianceState]                           VARCHAR(255)        NULL,
     [AzureManagedJailBroken]                                VARCHAR(255)        NULL,
     [AzureManagedManagementAgent]                           VARCHAR(255)        NULL,
-    [AzureManagedOperatingSystemVersion]                    VARCHAR(255)        NULL,
+    [AzureManagedOperatingSystemXRefID]                     INT                 NOT NULL    DEFAULT((0)),
     [AzureManagedEASDeviceID]                               VARCHAR(255)        NULL,
     [AzureManagedDeviceEnrollmentType]                      VARCHAR(255)        NULL,
     [AzureManagedActivationLockBypassCode]                  VARCHAR(255)        NULL,
@@ -57,6 +56,7 @@ CREATE TABLE [dbo].[DeviceAzureManaged] (
     [AzureManagedIsEncrypted]                               BIT                 NOT NULL    DEFAULT(0),
  
     CONSTRAINT [PK_DeviceAzureManagedID] PRIMARY KEY CLUSTERED ([DeviceAzureManagedID] ASC),
+    CONSTRAINT [FK_DeviceAzureManaged_OperatingSystemXRef] FOREIGN KEY (ConnectwiseOperatingSystemXRefID) REFERENCES OperatingSystemXRef(OperatingSystemXRefID)
 )
 GO
 

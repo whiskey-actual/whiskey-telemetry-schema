@@ -5,7 +5,7 @@ CREATE TABLE [dbo].[DeviceConnectwise] (
     [ConnectwiseDeviceType]                 VARCHAR(255)        NULL, 
     [ConnectwiseLocation]                   VARCHAR(255)        NULL, 
     [ConnectwiseClient]                     VARCHAR(255)        NULL, 
-    [ConnectwiseOperatingSystem]            VARCHAR(255)        NULL, 
+    [ConnectwiseOperatingSystemXRefID]      INT                 NOT NULL    DEFAULT((0)),
     [ConnectwiseOperatingSystemVersion]     VARCHAR(255)        NULL, 
     [ConnectwiseDomainName]                 VARCHAR(255)        NULL, 
     [ConnectwiseAgentVersion]               VARCHAR(255)        NULL, 
