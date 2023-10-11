@@ -56,7 +56,7 @@ CREATE TABLE [dbo].[DeviceAzureManaged] (
     [AzureManagedIsEncrypted]                               BIT                 NOT NULL    DEFAULT(0),
  
     CONSTRAINT [PK_DeviceAzureManagedID] PRIMARY KEY CLUSTERED ([DeviceAzureManagedID] ASC),
-    CONSTRAINT [FK_DeviceAzureManaged_OperatingSystemXRef] FOREIGN KEY (ConnectwiseOperatingSystemXRefID) REFERENCES OperatingSystemXRef(OperatingSystemXRefID)
+    CONSTRAINT [FK_DeviceAzureManaged_OperatingSystemXRef] FOREIGN KEY (AzureManagedOperatingSystemXRefID) REFERENCES OperatingSystemXRef(OperatingSystemXRefID)
 )
 GO
 

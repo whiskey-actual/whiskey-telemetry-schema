@@ -63,8 +63,6 @@ CREATE TABLE [dbo].[Employee] (
     aad_DeletedDateTime                 DATETIME2       NULL,
     aad_LastPasswordChangeDateTime      DATETIME2       NULL,
     aad_LastSeen                        DATETIME2       NULL,
-    
-
 
     CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED ([EmployeeID] ASC)
 )
