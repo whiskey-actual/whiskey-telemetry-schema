@@ -2,8 +2,8 @@
 
 CREATE TABLE [dbo].[DeviceAzureActiveDirectory] (
     [DeviceAzureActiveDirectoryID]			INT                 NOT NULL    IDENTITY(1,1),
-    [AzureId]                               VARCHAR(255)        NOT NULL,
-    [AzureDeviceId]                         VARCHAR(255)        NULL,
+    [AzureDeviceId]                         VARCHAR(255)        NOT NULL,
+    [AzureId]                               VARCHAR(255)        NULL,
     [AzureDeviceCategory]                   VARCHAR(255)        NULL,
     [AzureDeviceMetadata]                   VARCHAR(255)        NULL, -- always null
     [AzureDeviceOwnership]                  VARCHAR(255)        NULL,
