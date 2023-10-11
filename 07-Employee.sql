@@ -31,6 +31,7 @@ CREATE TABLE [dbo].[Employee] (
     ad_LastSeen                         DATETIME2       NULL,
 
     aad_Observed                        BIT             NOT NULL DEFAULT((0)),
+    aad_AccountEnabled                  BIT             NOT NULL DEFAULT((0)),
     aad_UserPrincipalName               VARCHAR(255)    NULL,
     aad_Id                              VARCHAR(255)    NULL,
     aad_BusinessPhone                   VARCHAR(255)    NULL,
@@ -40,7 +41,6 @@ CREATE TABLE [dbo].[Employee] (
     aad_MobilePhone                     VARCHAR(255)    NULL,
     aad_OfficeLocation                  VARCHAR(255)    NULL,
     aad_Surname                         VARCHAR(255)    NULL,
-    aad_AccountEnabled                  VARCHAR(255)    NULL,
     aad_AssignedPlans                   VARCHAR(255)    NULL,
     aad_City                            VARCHAR(255)    NULL,
     aad_Country                         VARCHAR(255)    NULL,
@@ -63,6 +63,7 @@ CREATE TABLE [dbo].[Employee] (
     aad_DeletedDateTime                 DATETIME2       NULL,
     aad_LastPasswordChangeDateTime      DATETIME2       NULL,
     aad_LastSeen                        DATETIME2       NULL,
+    
 
 
     CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED ([EmployeeID] ASC)
