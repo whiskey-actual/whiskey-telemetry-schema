@@ -2,6 +2,9 @@ CREATE TABLE [dbo].[Employee] (
     EmployeeID                          INT             NOT NULL    IDENTITY(1,1),  
     
     EmployeeEmailAddress                VARCHAR(255)    NULL,
+    EmployeeLastObserved                DATETIME2       NULL,
+    EmployeeIsActive                    BIT             NOT NULL    DEFAULT((0)),
+    
     
     ad_Observed                         BIT             NOT NULL DEFAULT((0)),
     ad_DN                               VARCHAR(255)    NULL,
