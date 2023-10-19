@@ -8,6 +8,8 @@ CREATE TABLE [dbo].[Device] (
     -- AD
     [ad_DN]                      VARCHAR(255)        NOT NULL,
     [ad_DNSHostName]             VARCHAR(255)        NULL,
+    [ad_OperatingSystem]            VARCHAR(255)        NULL,
+    [ad_OperatingSystemVersion]     VARCHAR(255)        NULL,
     [ad_LogonCount]              INT                 NOT NULL    DEFAULT((0)),
     [ad_WhenCreated]             DATETIME2           NULL,
     [ad_WhenChanged]             DATETIME2           NULL,
@@ -34,6 +36,8 @@ CREATE TABLE [dbo].[Device] (
     [aad_ProfileType]                      VARCHAR(255)        NULL,
     [aad_SourceType]                       VARCHAR(255)        NULL, -- always null
     [aad_TrustType]                        VARCHAR(255)        NULL,
+    [add_OperatingSystem]                   VARCHAR(255)        NULL,
+    [add_OperatingSystemVersion]            VARCHAR(255)        NULL,
     [aad_DeletedDateTime]                  DATETIME2           NULL,
     [aad_ApproximateLastSignInDateTime]    DATETIME2           NULL,
     [aad_ComplianceExpirationDateTime]     DATETIME2           NULL,
@@ -54,7 +58,8 @@ CREATE TABLE [dbo].[Device] (
     [mdm_ComplianceState]                           VARCHAR(255)        NULL,
     [mdm_JailBroken]                                VARCHAR(255)        NULL,
     [mdm_ManagementAgent]                           VARCHAR(255)        NULL,
-    [mdm_OperatingSystemXRefID]                     INT                 NOT NULL    DEFAULT((0)),
+    [mdm_OperatingSystem]                           VARCHAR(255)        NULL,
+    [mdm_OperatingSystemVersion]                    VARCHAR(255)        NULL,
     [mdm_EASDeviceID]                               VARCHAR(255)        NULL,
     [mdm_DeviceEnrollmentType]                      VARCHAR(255)        NULL,
     [mdm_ActivationLockBypassCode]                  VARCHAR(255)        NULL,
