@@ -6,7 +6,7 @@ CREATE TABLE [dbo].[Device] (
     [DeviceLastObserved]                    DATETIME2           NOT NULL    DEFAULT(SYSDATETIME()),
 
     -- AD
-    [ad_DN]                      VARCHAR(255)        NOT NULL,
+    [ad_DN]                      VARCHAR(255)        NULL,
     [ad_DNSHostName]             VARCHAR(255)        NULL,
     [ad_OperatingSystem]            VARCHAR(255)        NULL,
     [ad_OperatingSystemVersion]     VARCHAR(255)        NULL,
@@ -19,7 +19,7 @@ CREATE TABLE [dbo].[Device] (
     [ad_LastSeen]                DATETIME2           NULL,
 
     -- AAD
-    [aad_DeviceId]                         VARCHAR(255)        NOT NULL,
+    [aad_DeviceId]                         VARCHAR(255)        NULL,
     [aad_Id]                               VARCHAR(255)        NULL,
     [aad_DeviceCategory]                   VARCHAR(255)        NULL,
     [aad_DeviceMetadata]                   VARCHAR(255)        NULL, -- always null
@@ -44,6 +44,7 @@ CREATE TABLE [dbo].[Device] (
     [aad_CreatedDateTime]                  DATETIME2           NULL,
     [aad_OnPremisesLastSyncDateTime]       DATETIME2           NULL,
     [aad_RegistrationDateTime]             DATETIME2           NULL,
+    [add_LastSeen]                          DATETIME2           NULL,
     [aad_OnPremisesSyncEnabled]            BIT                 NOT NULL DEFAULT((0)),
     [aad_AccountEnabled]                   BIT                 NOT NULL DEFAULT((0)),
     [aad_IsCompliant]                      BIT                 NOT NULL DEFAULT((0)),
@@ -51,7 +52,7 @@ CREATE TABLE [dbo].[Device] (
     [aad_IsRooted]                         BIT                 NOT NULL DEFAULT((0)),
 
     -- Azure MDM
-    [mdm_Id]                                        VARCHAR(255)        NOT NULL,
+    [mdm_Id]                                        VARCHAR(255)        NULL,
     [mdm_DeviceName]                                VARCHAR(255)        NULL,
     [mdm_UserId]                                    VARCHAR(255)        NULL,
     [mdm_DeviceOwnerType]                           VARCHAR(255)        NULL,
@@ -99,13 +100,14 @@ CREATE TABLE [dbo].[Device] (
     [mdm_ExchangeLastSuccessfulSyncDateTime]        DATETIME2           NULL,
     [mdm_ComplianceGracePeriodExpirationDateTime]   DATETIME2           NULL,
     [mdm_ManagementCertificateExpirationDateTime]   DATETIME2           NULL,
+    [mdm_LastSeen]                                  DATETIME2           NULL,
     [mdm_IsEASActivated]                            BIT                 NOT NULL    DEFAULT(0),
     [mdm_IsAzureADRegistered]                       BIT                 NOT NULL    DEFAULT(0),
     [mdm_IsSupervised]                              BIT                 NOT NULL    DEFAULT(0),
     [mdm_IsEncrypted]                               BIT                 NOT NULL    DEFAULT(0),
 
     -- Connectwise
-    [cw_Id]                         VARCHAR(255)        NOT NULL,
+    [cw_Id]                         VARCHAR(255)        NULL,
     [cw_DeviceType]                 VARCHAR(255)        NULL, 
     [cw_Location]                   VARCHAR(255)        NULL, 
     [cw_Client]                     VARCHAR(255)        NULL, 
@@ -131,7 +133,7 @@ CREATE TABLE [dbo].[Device] (
     [cw_AssetDate]                  DATETIME2           NULL,
 
     -- Crowdstrike
-    [cs_DeviceId]                   VARCHAR(255)        NOT NULL,
+    [cs_DeviceId]                   VARCHAR(255)        NULL,
     [cs_CID]                        VARCHAR(255)        NULL,
     [cs_AgentVersion]               VARCHAR(255)        NULL,
     [cs_BIOSManufacturer]           VARCHAR(255)        NULL,
