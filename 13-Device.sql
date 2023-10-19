@@ -165,17 +165,17 @@ GO
 CREATE NONCLUSTERED INDEX [IDX_Device_DeviceIsActive] ON [dbo].[Device]([DeviceISActive] DESC);
 GO
 
-CREATE NONCLUSTERED INDEX IDX_DeviceActiveDirectory_ActiveDirectoryDN ON [dbo].[DeviceActiveDirectory]([ActiveDirectoryDN])
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_ad_DN ON [dbo].[Device]([ad_DN])
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX IDX_DeviceAzureActiveDirectory_AzureDeviceID ON [dbo].[DeviceAzureActiveDirectory]([AzureDeviceId])
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_aad_DeviceID ON [dbo].[Device]([aad_DeviceId])
 GO
 
-CREATE NONCLUSTERED INDEX IDX_DeviceAzureManaged_AzureManagedId ON [dbo].[DeviceAzureManaged]([AzureManagedId])
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_mdm_Id ON [dbo].[Device]([mdm_Id])
 GO
 
-CREATE NONCLUSTERED INDEX IDX_DeviceConnectwise_ConnectwiseId ON [dbo].[DeviceConnectwise]([ConnectwiseId])
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_cw_Id ON [dbo].[Device]([cw_Id])
 GO
 
-CREATE NONCLUSTERED INDEX IDX_DeviceCrowdstrike_CrowdstrikeDeviceId ON [dbo].[DeviceCrowdstrike]([CrowdstrikeDeviceId])
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_cs_DeviceId ON [dbo].[Device]([cs_DeviceId])
 GO
