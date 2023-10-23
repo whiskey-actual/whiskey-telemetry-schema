@@ -36,8 +36,8 @@ CREATE TABLE [dbo].[Device] (
     [aad_ProfileType]                      VARCHAR(255)        NULL,
     [aad_SourceType]                       VARCHAR(255)        NULL, -- always null
     [aad_TrustType]                        VARCHAR(255)        NULL,
-    [add_OperatingSystem]                  VARCHAR(255)        NULL,
-    [add_OperatingSystemVersion]           VARCHAR(255)        NULL,
+    [aad_OperatingSystem]                  VARCHAR(255)        NULL,
+    [aad_OperatingSystemVersion]           VARCHAR(255)        NULL,
     [aad_DeletedDateTime]                  DATETIME2           NULL,
     [aad_ApproximateLastSignInDateTime]    DATETIME2           NULL,
     [aad_ComplianceExpirationDateTime]     DATETIME2           NULL,
