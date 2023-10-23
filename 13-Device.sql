@@ -172,17 +172,17 @@ GO
 CREATE NONCLUSTERED INDEX [IDX_Device_DeviceIsActive] ON [dbo].[Device]([DeviceISActive] DESC);
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_ad_DN ON [dbo].[Device]([ad_DN])
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_ad_DN ON [dbo].[Device]([ad_DN]) WHERE [ad_DN] IS NOT NULL;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_aad_DeviceID ON [dbo].[Device]([aad_DeviceId])
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_aad_DeviceID ON [dbo].[Device]([aad_DeviceId]) WHERE [aad_DeviceId] IS NOT NULL;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_mdm_Id ON [dbo].[Device]([mdm_Id])
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_mdm_Id ON [dbo].[Device]([mdm_Id]) WHERE [mdm_Id] IS NOT NULL;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_cw_Id ON [dbo].[Device]([cw_Id])
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_cw_Id ON [dbo].[Device]([cw_Id]) WHERE [cw_Id] IS NOT NULL;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_cs_DeviceId ON [dbo].[Device]([cs_DeviceId])
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_cs_DeviceId ON [dbo].[Device]([cs_DeviceId]) WHERE [cd_DeviceId] IS NOT NULL;
 GO
