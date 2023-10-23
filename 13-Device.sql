@@ -184,5 +184,5 @@ GO
 CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_cw_Id ON [dbo].[Device]([cw_Id]) WHERE [cw_Id] IS NOT NULL;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_cs_DeviceId ON [dbo].[Device]([cs_DeviceId]) WHERE [cd_DeviceId] IS NOT NULL;
+CREATE UNIQUE NONCLUSTERED INDEX IDX_Device_cs_DeviceId ON [dbo].[Device]([cs_DeviceId]) WHERE [cs_DeviceId] IS NOT NULL;
 GO
