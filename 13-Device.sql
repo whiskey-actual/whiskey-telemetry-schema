@@ -3,7 +3,7 @@ CREATE TABLE [dbo].[Device] (
     [DeviceName]                            VARCHAR(255)        NOT NULL,
     [DeviceIsActive]                        BIT                 NOT NULL    DEFAULT((0)),
     [DeviceFirstObserved]                   DATETIME2           NOT NULL    DEFAULT(SYSDATETIME()),
-    [DeviceLastObserved]                    DATETIME2           NOT NULL    DEFAULT(SYSDATETIME()),
+    [DeviceLastObserved]                    DATETIME2           NULL,
 
     -- AD
     [ad_DN]                      VARCHAR(255)        NULL,
