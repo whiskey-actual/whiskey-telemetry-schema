@@ -5,7 +5,6 @@ CREATE TABLE [dbo].[Employee] (
     EmployeeLastObserved                DATETIME2       NULL,
     EmployeeIsActive                    BIT             NOT NULL    DEFAULT((0)),
     
-    
     ad_Observed                         BIT             NOT NULL DEFAULT((0)),
     ad_DN                               VARCHAR(255)    NULL,
     ad_CN                               VARCHAR(255)    NULL,
@@ -65,6 +64,7 @@ CREATE TABLE [dbo].[Employee] (
     aad_CreatedDateTime                 DATETIME2       NULL,
     aad_DeletedDateTime                 DATETIME2       NULL,
     aad_LastPasswordChangeDateTime      DATETIME2       NULL,
+    aad_LastSignInDateTime              DATETIME2       NULL,
     aad_LastSeen                        DATETIME2       NULL,
 
     CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED ([EmployeeID] ASC)
