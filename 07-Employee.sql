@@ -37,7 +37,7 @@ CREATE TABLE [dbo].[Employee] (
     aad_UserPrincipalName               VARCHAR(255)    NULL,
     aad_Id                              VARCHAR(255)    NULL,
     aad_BusinessPhone                   VARCHAR(255)    NULL,
-    aad_BisplayName                     VARCHAR(255)    NULL,
+    aad_DisplayName                     VARCHAR(255)    NULL,
     aad_GivenName                       VARCHAR(255)    NULL,
     aad_JobTitle                        VARCHAR(255)    NULL,
     aad_MobilePhone                     VARCHAR(255)    NULL,
